@@ -1,4 +1,4 @@
-package in.jugchennai.javamoney.trakstok;
+package in.jugchennai.javamoney.trakstok.bean;
 
 /*
  * Copyright 2013 JUGChennai.
@@ -15,13 +15,9 @@ package in.jugchennai.javamoney.trakstok;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 import java.util.Date;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.apache.log4j.Logger;
@@ -33,26 +29,22 @@ import org.apache.log4j.Logger;
  */
 @ManagedBean
 @SessionScoped
-public class LoginBean {
-    
-    Logger logger;
-    
-    private boolean logged=false;
+public class LoginBean extends TSBaseFormBean {
+
+    private boolean logged = false;
     private Date lastLogin;
- 
-    @NotNull (message = "UserName must not be null")
-    @Size(min=4, max=16, message = "Username must be atleast 4 characters and max of 16")
+    @NotNull(message = "UserName must not be null")
+    @Size(min = 4, max = 16, message = "Username must be atleast 4 characters and max of 16")
     private String userName;
-    
     @NotNull(message = "Password must not be null")
-    @Size(min=4, max=16, message = "Password must be atleast 4 characters and max of 16")
+    @Size(min = 4, max = 16, message = "Password must be atleast 4 characters and max of 16")
     private String password;
 
     public LoginBean(String userName, String password) {
-       logger = Logger.getLogger(LoginBean.class);
+        logger = Logger.getLogger(LoginBean.class);
         this.userName = userName;
         this.password = password;
-        this.logged=false;
+        this.logged = false;
     }
 
     public LoginBean() {
@@ -74,38 +66,25 @@ public class LoginBean {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public void setLogged(boolean value)
-    {
-        logged=true;
+
+    public void setLogged(boolean value) {
+        logged = true;
     }
-    
-    public boolean getLogged()
-    {
+
+    public boolean getLogged() {
         return logged;
     }
-    
-    public void setDate(Date date)
-    {
-        this.lastLogin=date;
+
+    public void setDate(Date date) {
+        this.lastLogin = date;
     }
-    
-    public Date getDate()
-    {
+
+    public Date getDate() {
         return lastLogin;
     }
-  
-    
-    private void addMessage(FacesMessage message){
-        FacesContext.getCurrentInstance().addMessage(null, message);
+
+    public String whenLogin() {
+
+        return null;
     }
- 
-    private void doRedirect(String url){
-        try {
-            FacesContext context=FacesContext.getCurrentInstance();
-            context.getExternalContext().redirect(url);
-        } catch (Exception e) {
-        }
-    } 
-    
 }
