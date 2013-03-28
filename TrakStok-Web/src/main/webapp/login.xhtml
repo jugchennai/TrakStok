@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="WEB-INF/template/default.xhtml">
+    <ui:define name="title">TrakStok</ui:define>
+
+
+    <ui:define name="content">    
+        <h1>Login...</h1>
+        <h:form>
+
+            <table align="center">
+
+                <tr>
+                    <td>User Name:</td>
+                    <td>
+                        <h:inputText id="userName" value="#{loginBean.userName}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td>
+                        <h:inputSecret id="password" redisplay="false" value="#{loginBean.password}" />
+                    </td>
+                </tr>
+                <tr >
+                    <td colspan="2">
+
+                    </td>
+                </tr>
+                <tr >
+                    <td colspan="2">
+                        <h:messages errorStyle="color: red" />
+                    </td>
+                </tr>
+            </table>
+
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                <h:commandButton class="btn btn-primary" action="${loginBean.whenLogin()}" value="Login" />
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
