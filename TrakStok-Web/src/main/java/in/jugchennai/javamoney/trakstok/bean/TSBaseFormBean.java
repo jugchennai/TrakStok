@@ -24,20 +24,19 @@ import org.apache.log4j.Logger;
  * @author Rajmahendra Hegde <rajmahendra@gmail.com>
  */
 public class TSBaseFormBean {
-    
-     Logger logger;
-    
-     private void doRedirect(String url){
+
+    Logger logger;
+
+    protected void doRedirect(String url) {
         try {
-            FacesContext context=FacesContext.getCurrentInstance();
+            FacesContext context = FacesContext.getCurrentInstance();
             context.getExternalContext().redirect(url);
         } catch (Exception e) {
         }
-    } 
-     
-      private void addMessage(FacesMessage.Severity severity, String theMessage, String detail){
-          FacesMessage message =new FacesMessage(severity, theMessage, detail);
+    }
+
+    protected void addMessage(FacesMessage.Severity severity, String theMessage, String detail) {
+        FacesMessage message = new FacesMessage(severity, theMessage, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
-    
 }
