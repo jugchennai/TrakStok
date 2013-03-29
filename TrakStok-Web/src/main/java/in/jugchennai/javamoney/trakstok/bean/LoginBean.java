@@ -87,4 +87,10 @@ public class LoginBean extends TSBaseFormBean {
 
         return null;
     }
+
+    public void userLogged() {
+        if (!logged) {
+            doRedirect("login.xhtml");
+        }
+    }
 }
