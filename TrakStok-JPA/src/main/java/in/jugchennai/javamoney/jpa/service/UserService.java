@@ -17,12 +17,9 @@ package in.jugchennai.javamoney.jpa.service;
 
 import in.jugchennai.javamoney.jpa.service.entity.TSUser;
 import java.util.Collection;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
@@ -32,7 +29,6 @@ import javax.persistence.Query;
 public class UserService {
 
     private EntityManagerFactory emFactory;
-
     private EntityManager eManager;
 
     public UserService() {
