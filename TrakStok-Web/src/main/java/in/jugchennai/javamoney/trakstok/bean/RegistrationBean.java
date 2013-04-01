@@ -15,7 +15,12 @@
  */
 package in.jugchennai.javamoney.trakstok.bean;
 
+import in.jugchennai.javamoney.jpa.service.UserService;
+import in.jugchennai.javamoney.jpa.service.entity.TSUser;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import org.apache.log4j.Logger;
 
 /**
@@ -24,10 +29,16 @@ import org.apache.log4j.Logger;
  */
 @ManagedBean
 public class RegistrationBean extends TSBaseFormBean {
+    
+    TSUser tsusers;
 
-    private String fullName;
+    @NotNull(message = "UserName must not be null")
+    @Size(min = 4, max = 16, message = "Username must be atleast 4 characters and max of 16")
     private String userName;
+    @NotNull(message = "Password must not be null")
+    @Size(min = 4, max = 16, message = "Password must be atleast 4 characters and max of 16")
     private String password;
+    private String fullName;
     private String reenterPassword;
     private String displayName;
     private long updateValue = 0;
@@ -84,6 +95,21 @@ public class RegistrationBean extends TSBaseFormBean {
     }
 
     public String whenRegisteration() {
-        return null;
+   UserService service;
+     
+        service=new UserService();
+        tsusers= new TSUser();
+        tsusers.setUserid(updateValue);
+        tsusers.setUsername(userName);
+        tsusers.setPassword(password);
+        tsusers.setLastlogin(new java.util.GregorianCalendar().getTime());
+
+            if(service.addUser(tsusers)){
+                addMessage(FacesMessage.SEVERITY_INFO, "User Registration Successful!!!", null);
+                return "success";
+            }
+
+            addMessage(FacesMessage.SEVERITY_ERROR, "User Registration Failed!!!", null);
+            return "failure";
     }
 }
