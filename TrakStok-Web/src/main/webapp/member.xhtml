@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" template="WEB-INF/template/template.xhtml">
+    <ui:define name="title">Urban Travellers :: Member Dashboard</ui:define>
+
+    <ui:define name="content">
+        <f:view>
+            <h:form>
+                    <!--<h2>Hello <h:outputText value="#{loginBean.userName}" />, you are successfully login.</h2>-->  
+            <table>
+                <th>Your Information</th>
+                <tr>
+                    <td>Name :</td>
+                    <td><h:outputText value="#{loginBean.userName}" /></td>
+                </tr>
+                <tr>
+                    <td>Username :</td>
+                    <td><h:outputText value="#{loginBean.userName}" /></td>
+                </tr>
+                <tr>
+                    <td>Last Login :</td>
+                    <td><h:outputText value="#{loginBean.date}" /></td>
+                </tr>
+                <tr>
+                    
+                </tr>
+              
+                <tr>
+                    <td><h:commandButton class="btn btn-primary" action="${loginBean.logout()}" value="Logout" /></td>
+                </tr>
+            </table>
+            </h:form>
+        </f:view> 
+    </ui:define>
+    
+</ui:composition>
