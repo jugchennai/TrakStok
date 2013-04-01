@@ -15,9 +15,14 @@ package in.jugchennai.javamoney.trakstok.bean;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import in.jugchennai.javamoney.jpa.service.UserService;
+import in.jugchennai.javamoney.jpa.service.entity.TSUser;
+import java.util.Collection;
 import java.util.Date;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.apache.log4j.Logger;
@@ -85,7 +90,19 @@ public class LoginBean extends TSBaseFormBean {
 
     public String whenLogin() {
 
-        return null;
+           UserService service=new UserService();
+        Collection<TSUser> findByUsername = service.findByUsername(userName);
+        for (TSUser next : findByUsername) {
+            if(next.getPassword().equals(password))
+            {
+                setDate(next.getLastlogin());
+                setLogged(true);
+                addMessage(FacesMessage.SEVERITY_INFO, "Login Successful!!!", null);
+                return "success";
+            }
+        }
+        addMessage(FacesMessage.SEVERITY_INFO, "Incorrect Username/Password.", null);
+        return "failure";
     }
 
     public void userLogged() {
@@ -93,4 +110,13 @@ public class LoginBean extends TSBaseFormBean {
             doRedirect("login.xhtml");
         }
     }
+    
+     public String logout() {
+    String result="/faces/login.xhtml?faces-redirect=true";
+
+    FacesContext context = FacesContext.getCurrentInstance();
+    context.getExternalContext().invalidateSession();
+    
+    return result;
+  }
 }
