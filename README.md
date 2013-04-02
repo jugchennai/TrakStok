@@ -11,6 +11,7 @@ Prerequisite
 
 * [Netbeans Java EE IDE 7.3](http://netbeans.org/downloads/)
 * [JSR 354: Money and Currency API](https://github.com/JavaMoney/javamoney)
+* Java DB (comes with Glassfish) DB Script is available at _TrakStok/src/main/scripts/database.sql_
 
 JSR 354: Money and Currency API
 ===============================
