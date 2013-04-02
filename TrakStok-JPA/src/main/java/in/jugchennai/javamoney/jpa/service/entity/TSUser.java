@@ -50,6 +50,7 @@ public class TSUser implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long userid;
+    private String displayName;
     private String username;
     private String password;
     @Temporal(TemporalType.TIMESTAMP)
@@ -100,6 +101,14 @@ public class TSUser implements Serializable {
         this.lastlogin = lastlogin;
     }
 
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }   
+    
     @Override
     public int hashCode() {
         int hash = 0;

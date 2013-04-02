@@ -15,6 +15,7 @@
  */
 package in.jugchennai.javamoney.trakstok.bean;
 
+import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
@@ -23,7 +24,7 @@ import org.apache.log4j.Logger;
  *
  * @author Rajmahendra Hegde <rajmahendra@gmail.com>
  */
-public class TSBaseFormBean {
+public class TSBaseFormBean implements Serializable {
 
     Logger logger;
 

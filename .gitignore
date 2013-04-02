@@ -1,3 +1,8 @@
 
 target/
 build/
+
+TrakStok-Web/faces-config.NavData
+nb-configuration.xml
+
+

@@ -10,31 +10,23 @@
         <h:form >
 
             <table align="center" width="60%">
-
-                <tr>
-                    <td>Full Name:</td>
-                    <td>
-                        <h:inputText id="fullName" value="#{registrationBean.fullName}" required="true" />
-                    </td>
-                </tr>
-
                 <tr>
                     <td>Display Name:</td>
                     <td>
-                        <h:inputText id="displayName" value="#{registrationBean.userName}" required="true" />
+                        <h:inputText id="displayName" value="#{registrationBean.displayName}" />
                     </td>
                 </tr>
 
                 <tr>
                     <td>User Name:</td>
                     <td>
-                        <h:inputText id="userName" value="#{registrationBean.userName}" required="true" />
+                        <h:inputText id="userName" value="#{registrationBean.userName}" />
                     </td>
                 </tr>
                 <tr>
                     <td>Password:</td>
                     <td>
-                        <h:inputSecret id="password" redisplay="false" value="#{registrationBean.password}" required="true" />
+                        <h:inputSecret id="password" redisplay="false" value="#{registrationBean.password}" />
                     </td>
                 </tr>
 
