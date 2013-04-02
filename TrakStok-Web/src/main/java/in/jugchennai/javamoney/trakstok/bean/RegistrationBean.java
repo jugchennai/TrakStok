@@ -38,7 +38,6 @@ public class RegistrationBean extends TSBaseFormBean {
     @NotNull(message = "Password must not be null")
     @Size(min = 4, max = 16, message = "Password must be atleast 4 characters and max of 16")
     private String password;
-    private String fullName;
     private String reenterPassword;
     private String displayName;
     private long updateValue = 0;
@@ -47,19 +46,10 @@ public class RegistrationBean extends TSBaseFormBean {
         logger = Logger.getLogger(RegistrationBean.class);
     }
 
-    public RegistrationBean(String fullName, String userName, String password, String displayName) {
-        this.fullName = fullName;
+    public RegistrationBean(String userName, String password, String displayName) {
         this.userName = userName;
         this.password = password;
         this.displayName = displayName;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public String getUserName() {
@@ -100,6 +90,7 @@ public class RegistrationBean extends TSBaseFormBean {
         service=new UserService();
         tsusers= new TSUser();
         tsusers.setUserid(updateValue);
+        tsusers.setDisplayName(displayName);
         tsusers.setUsername(userName);
         tsusers.setPassword(password);
         tsusers.setLastlogin(new java.util.GregorianCalendar().getTime());

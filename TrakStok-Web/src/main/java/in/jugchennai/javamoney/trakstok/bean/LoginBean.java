@@ -36,6 +36,7 @@ import org.apache.log4j.Logger;
 @SessionScoped
 public class LoginBean extends TSBaseFormBean {
 
+    String displayName;
     private boolean logged = false;
     private Date lastLogin;
     @NotNull(message = "UserName must not be null")
@@ -88,6 +89,16 @@ public class LoginBean extends TSBaseFormBean {
         return lastLogin;
     }
 
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+    
+    
+
     public String whenLogin() {
 
            UserService service=new UserService();
@@ -96,6 +107,7 @@ public class LoginBean extends TSBaseFormBean {
             if(next.getPassword().equals(password))
             {
                 setDate(next.getLastlogin());
+                setDisplayName(next.getDisplayName());
                 setLogged(true);
                 addMessage(FacesMessage.SEVERITY_INFO, "Login Successful!!!", null);
                 return "success";
