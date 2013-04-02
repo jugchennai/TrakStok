@@ -8,10 +8,14 @@ exchange rate, custom currency etc.
 
 Prerequisite
 ============
+Any IDE which supports Maven/Java will do.  This project is developed and run on Glassfish. You still can deploy in any server supports JEE 6.
+
+TrakStok uses following tools :
 
 * [Netbeans Java EE IDE 7.3](http://netbeans.org/downloads/)
 * [JSR 354: Money and Currency API](https://github.com/JavaMoney/javamoney)
 * Java DB (comes with Glassfish) DB Script is available at _TrakStok/src/main/scripts/database.sql_
+* Latest Chrome Browser
 
 JSR 354: Money and Currency API
 ===============================
