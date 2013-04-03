@@ -91,6 +91,7 @@ public class RegistrationBean extends TSBaseFormBean {
         tsusers= new TSUser();
         tsusers.setUserid(updateValue);
         tsusers.setDisplayName(displayName);
+        tsusers.setAdminrole(false);
         tsusers.setUsername(userName);
         tsusers.setPassword(password);
         tsusers.setLastlogin(new java.util.GregorianCalendar().getTime());

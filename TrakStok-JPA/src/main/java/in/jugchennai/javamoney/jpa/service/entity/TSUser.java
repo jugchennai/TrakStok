@@ -53,6 +53,7 @@ public class TSUser implements Serializable {
     private String displayName;
     private String username;
     private String password;
+    private boolean adminrole = false;
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastlogin;
 
@@ -108,6 +109,14 @@ public class TSUser implements Serializable {
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }   
+
+    public boolean isAdminrole() {
+        return adminrole;
+    }
+
+    public void setAdminrole(boolean adminrole) {
+        this.adminrole = adminrole;
+    }
     
     @Override
     public int hashCode() {
