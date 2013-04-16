@@ -85,9 +85,7 @@ public class RegistrationBean extends TSBaseFormBean {
     }
 
     public String whenRegisteration() {
-   UserService service;
-     
-        service=new UserService();
+
         tsusers= new TsUsers();
         tsusers.setUserid(updateValue);
         tsusers.setDisplayname(displayName);
@@ -96,7 +94,7 @@ public class RegistrationBean extends TSBaseFormBean {
         tsusers.setPassword(password);
         tsusers.setLastlogin(new java.util.GregorianCalendar().getTime());
 
-            if(service.addUser(tsusers)){
+            if(UserService.addUser(tsusers)){
                 addMessage(FacesMessage.SEVERITY_INFO, "User Registration Successful!!!", null);
                 return "success";
             }
