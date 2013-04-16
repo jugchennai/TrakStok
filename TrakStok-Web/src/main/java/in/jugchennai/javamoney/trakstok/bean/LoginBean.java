@@ -101,8 +101,7 @@ public class LoginBean extends TSBaseFormBean {
 
     public String whenLogin() {
 
-           UserService service=new UserService();
-        Collection<TsUsers> findByUsername = service.findByUsername(userName);
+        Collection<TsUsers> findByUsername = UserService.findByUsername(userName);
         for (TsUsers next : findByUsername) {
             if(next.getPassword().equals(password))
             {
