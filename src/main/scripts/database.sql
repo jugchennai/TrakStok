@@ -18,7 +18,6 @@ displayName VARCHAR(20) not null,
 symbol VARCHAR(15) not null unique
 );
 
-
 /* User's Favorite Companies Table */
 CREATE TABLE TS_USERS_FAVORITE (
 favoriteid INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
@@ -29,7 +28,6 @@ FOREIGN KEY (companyid) REFERENCES TS_COMPANY(companyid)
 );
 
 /* stock inflection table */
-
 CREATE TABLE TS_STOCK_INFLECTION (
 inflectionid INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
 companyid Integer,
