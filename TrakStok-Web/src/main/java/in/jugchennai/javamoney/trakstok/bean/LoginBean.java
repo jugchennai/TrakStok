@@ -16,7 +16,7 @@ package in.jugchennai.javamoney.trakstok.bean;
  * limitations under the License.
  */
 import in.jugchennai.javamoney.jpa.service.UserService;
-import in.jugchennai.javamoney.jpa.service.entity.TSUser;
+import in.jugchennai.javamoney.jpa.service.entity.TsUsers;
 import java.util.Collection;
 import java.util.Date;
 import javax.faces.application.FacesMessage;
@@ -102,12 +102,12 @@ public class LoginBean extends TSBaseFormBean {
     public String whenLogin() {
 
            UserService service=new UserService();
-        Collection<TSUser> findByUsername = service.findByUsername(userName);
-        for (TSUser next : findByUsername) {
+        Collection<TsUsers> findByUsername = service.findByUsername(userName);
+        for (TsUsers next : findByUsername) {
             if(next.getPassword().equals(password))
             {
                 setDate(next.getLastlogin());
-                setDisplayName(next.getDisplayName());
+                setDisplayName(next.getDisplayname());
                 setLogged(true);
                 addMessage(FacesMessage.SEVERITY_INFO, "Login Successful!!!", null);
                 return "success";
