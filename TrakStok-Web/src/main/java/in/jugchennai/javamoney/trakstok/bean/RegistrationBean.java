@@ -16,7 +16,7 @@
 package in.jugchennai.javamoney.trakstok.bean;
 
 import in.jugchennai.javamoney.jpa.service.UserService;
-import in.jugchennai.javamoney.jpa.service.entity.TSUser;
+import in.jugchennai.javamoney.jpa.service.entity.TsUsers;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.validation.constraints.NotNull;
@@ -30,7 +30,7 @@ import org.apache.log4j.Logger;
 @ManagedBean
 public class RegistrationBean extends TSBaseFormBean {
     
-    TSUser tsusers;
+    TsUsers tsusers;
 
     @NotNull(message = "UserName must not be null")
     @Size(min = 4, max = 16, message = "Username must be atleast 4 characters and max of 16")
@@ -40,7 +40,7 @@ public class RegistrationBean extends TSBaseFormBean {
     private String password;
     private String reenterPassword;
     private String displayName;
-    private long updateValue = 0;
+    private Integer updateValue = 0;
 
     public RegistrationBean() {
         logger = Logger.getLogger(RegistrationBean.class);
@@ -88,9 +88,9 @@ public class RegistrationBean extends TSBaseFormBean {
    UserService service;
      
         service=new UserService();
-        tsusers= new TSUser();
+        tsusers= new TsUsers();
         tsusers.setUserid(updateValue);
-        tsusers.setDisplayName(displayName);
+        tsusers.setDisplayname(displayName);
         tsusers.setAdminrole(false);
         tsusers.setUsername(userName);
         tsusers.setPassword(password);
