@@ -42,7 +42,7 @@ public class UserService {
         eManager = emFactory.createEntityManager();
     }
 
-    public Collection<TsUsers> findAll() {
+    public static Collection<TsUsers> findAll() {
         return (Collection<TsUsers>) eManager.createNamedQuery("TsUsers.findAll")
                 .getResultList();
     }

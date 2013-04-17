@@ -1,52 +1,36 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets" template="WEB-INF/template/default.xhtml">
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:p="http://primefaces.org/ui"
+                template="WEB-INF/template/default.xhtml">
     <ui:define name="title">TrakStok :: Registration Form</ui:define>
 
     <ui:define name="content">
-
-        <h1>Registration Form</h1>
         <h:form >
+             <p:growl id="growl" showDetail="true" showSummary="false" sticky="false"  />  
+            
+             <center> <p:panelGrid columns="2" >  
+                <f:facet name="header">  
+                    Registration Form 
+                </f:facet>  
 
-            <table align="center" width="60%">
-                <tr>
-                    <td>Display Name:</td>
-                    <td>
-                        <h:inputText id="displayName" value="#{registrationBean.displayName}" />
-                    </td>
-                </tr>
+                <h:outputLabel for="userName" value="Display Name: " />  
+                <p:inputText id="displayName" value="#{registrationBean.displayName}" />
 
-                <tr>
-                    <td>User Name:</td>
-                    <td>
-                        <h:inputText id="userName" value="#{registrationBean.userName}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Password:</td>
-                    <td>
-                        <h:inputSecret id="password" redisplay="false" value="#{registrationBean.password}" />
-                    </td>
-                </tr>
+                <h:outputLabel for="password" value="User Name: " />  
+                 <p:inputText id="userName" value="#{registrationBean.userName}"  />
+                 
+                  <h:outputLabel for="password" value="Password: " />  
+                  <p:password id="password" redisplay="false" value="#{registrationBean.password}" feedback="true"/>
 
-                <tr >
-                    <td colspan="2">
-                    </td>
-                </tr>
-                <tr >
-                    <td colspan="2">
-                        <h:messages errorStyle="color: red"  />
-                    </td>
-                </tr>
-            </table>
-
-            <div class="modal-footer">
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                <h:commandButton class="btn btn-primary" action="${registrationBean.whenRegisteration()}" value="Register" >
-
-                </h:commandButton>
-            </div>
+                <f:facet name="footer">  
+                    <p:commandButton action="${registrationBean.whenRegisteration}" value="Registration" update="growl"/>  
+                    
+                </f:facet>  
+            </p:panelGrid>  
+             </center>
+            
         </h:form>
 
     </ui:define>
