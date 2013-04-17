@@ -36,8 +36,20 @@ public class TSBaseFormBean implements Serializable {
         }
     }
 
-    protected void addMessage(FacesMessage.Severity severity, String theMessage, String detail) {
+    private void addMessage(FacesMessage.Severity severity, String theMessage, String detail) {
         FacesMessage message = new FacesMessage(severity, theMessage, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    protected void addInfoMessage(String summary, String detail) {
+        addMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+    }
+
+    protected void addErrorMessage(String summary, String detail) {
+        addMessage(FacesMessage.SEVERITY_ERROR, summary, detail);
+    }
+
+    protected void addWarningMessage(String summary, String detail) {
+        addMessage(FacesMessage.SEVERITY_WARN, summary, detail);
     }
 }

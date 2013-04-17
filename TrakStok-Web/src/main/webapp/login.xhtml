@@ -2,44 +2,37 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" 
                 template="WEB-INF/template/default.xhtml">
     <ui:define name="title">TrakStok</ui:define>
 
 
     <ui:define name="content">    
-        <h1>Login...</h1>
+
         <h:form>
+            <p:growl id="growl" showDetail="true" showSummary="false" sticky="false"  />  
 
-            <table align="center">
 
-                <tr>
-                    <td>User Name:</td>
-                    <td>
-                        <h:inputText id="userName" value="#{loginBean.userName}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Password:</td>
-                    <td>
-                        <h:inputSecret id="password" redisplay="false" value="#{loginBean.password}" />
-                    </td>
-                </tr>
-                <tr >
-                    <td colspan="2">
+            <center>
+                <p:panelGrid columns="2" >  
+                    <f:facet name="header">  
+                        Login 
+                    </f:facet>  
 
-                    </td>
-                </tr>
-                <tr >
-                    <td colspan="2">
-                        <h:messages errorStyle="color: red" />
-                    </td>
-                </tr>
-            </table>
+                    <h:outputLabel for="userName" value="Enter your UserName: " />  
+                    <p:inputText id="userName" value="#{loginBean.userName}" />
 
-            <div class="modal-footer">
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                <h:commandButton class="btn btn-primary" action="${loginBean.whenLogin()}" value="Login" />
-            </div>
+                    <h:outputLabel for="password" value="Enter your Password: " />  
+                    <p:password id="password" value="#{loginBean.password}" feedback="true" />
+
+                    <f:facet name="footer">  
+                        <p:commandButton ajax="false" action="${loginBean.whenLogin}" value="Login" update="growl"/>  
+                    </f:facet>  
+                </p:panelGrid>  
+            </center>
+
+
+
         </h:form>
     </ui:define>
 </ui:composition>

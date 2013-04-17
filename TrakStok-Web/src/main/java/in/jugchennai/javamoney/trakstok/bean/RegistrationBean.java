@@ -19,6 +19,7 @@ import in.jugchennai.javamoney.jpa.service.UserService;
 import in.jugchennai.javamoney.jpa.service.entity.TsUsers;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.event.ActionEvent;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.apache.log4j.Logger;
@@ -39,6 +40,8 @@ public class RegistrationBean extends TSBaseFormBean {
     @Size(min = 4, max = 16, message = "Password must be atleast 4 characters and max of 16")
     private String password;
     private String reenterPassword;
+     @NotNull(message = "DisplayName must not be null")
+    @Size(min = 5, max = 20, message = "DisplayName must be atleast 5 characters and max of 20")
     private String displayName;
     private Integer updateValue = 0;
 
@@ -84,7 +87,7 @@ public class RegistrationBean extends TSBaseFormBean {
         this.displayName = displayName;
     }
 
-    public String whenRegisteration() {
+    public String whenRegisteration(ActionEvent actionEvent) {
 
         tsusers= new TsUsers();
         tsusers.setUserid(updateValue);
@@ -95,11 +98,11 @@ public class RegistrationBean extends TSBaseFormBean {
         tsusers.setLastlogin(new java.util.GregorianCalendar().getTime());
 
             if(UserService.addUser(tsusers)){
-                addMessage(FacesMessage.SEVERITY_INFO, "User Registration Successful!!!", null);
+                addInfoMessage( "Registration Successful.", "User Registration Successful!!!");
                 return "success";
             }
 
-            addMessage(FacesMessage.SEVERITY_ERROR, "User Registration Failed!!!", null);
+            addErrorMessage( "Incomplete Registration", "User Registration Failed!!!");
             return "failure";
     }
 }
