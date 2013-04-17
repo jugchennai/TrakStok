@@ -77,7 +77,7 @@ public class LoginBean extends TSBaseFormBean {
         logged = true;
     }
 
-    public boolean getLogged() {
+    public boolean isLogged() {
         return logged;
     }
 
@@ -108,11 +108,13 @@ public class LoginBean extends TSBaseFormBean {
                 setDate(next.getLastlogin());
                 setDisplayName(next.getDisplayname());
                 setLogged(true);
-                addMessage(FacesMessage.SEVERITY_INFO, "Login Successful!!!", null);
+                addInfoMessage("Login Successful!!!", "Welcome " + displayName + " to TrakStok!");
+                System.out.println("Logged in");
                 return "success";
             }
         }
-        addMessage(FacesMessage.SEVERITY_INFO, "Incorrect Username/Password.", null);
+        addErrorMessage("Incomplete Login...", "Incorrect Username/Password.");
+        System.out.println("Error while logged in");
         return "failure";
     }
 
@@ -123,7 +125,9 @@ public class LoginBean extends TSBaseFormBean {
     }
     
      public String logout() {
-    String result="/faces/login.xhtml?faces-redirect=true";
+    String result="/faces/login.xhtml";
+    
+    addInfoMessage("Logout",displayName + ", you are successfully logout.");
 
     FacesContext context = FacesContext.getCurrentInstance();
     context.getExternalContext().invalidateSession();

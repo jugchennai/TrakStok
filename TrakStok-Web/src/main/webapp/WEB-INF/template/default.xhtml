@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <!--
     Copyright 2013 JUGChennai.
     
@@ -24,67 +26,21 @@
         <title><ui:insert name="title">TrekStok :: JSR 354: Money and Currency</ui:insert></title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <h:outputStylesheet name="bootstrap.min.css" library="css"/>
-        <style type="text/css">
-            body {
-                padding-top: 20px;
-                padding-bottom: 40px;
-            }
 
-            /* Custom container */
-            .container-narrow {
-                margin: 0 auto;
-                max-width: 700px;
-            }
-            .container-narrow > hr {
-                margin: 30px 0;
-            }
 
-            /* Main marketing message and sign up button */
-            .jumbotron {
-                margin: 60px 0;
-                text-align: center;
-            }
-            .jumbotron h1 {
-                font-size: 72px;
-                line-height: 1;
-            }
-            .jumbotron .btn {
-                font-size: 21px;
-                padding: 14px 24px;
-            }
-
-            /* Supporting marketing content */
-            .marketing {
-                margin: 60px 0;
-            }
-            .marketing p + h4 {
-                margin-top: 28px;
-            }
-        </style>
     </h:head>
     <h:body>
 
-
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <button  class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button >
-                    <a class="brand" href="member.xhtml">TrekStok</a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav">
-                            <li ><h:link value="Registration" outcome="registration" /></li>
-                            <li><h:link value="Login" outcome="login" /></li>
-                            <li>about</li>
-                        </ul>
-                    </div><!--/.nav-collapse -->
-                </div>
-            </div>
-        </div>   
+       
+        <h1>TrakStok</h1>
+<h:form>
+        <p:menubar> 
+            <c:if test="#{loginBean.logged == false}" >
+            <p:menuitem value="Registration" url="/faces/registration.xhtml" icon="ui-icon-close" /> 
+            <p:menuitem value="Login" url="/faces/login.xhtml" icon="ui-icon-close" /> 
+            </c:if>
+        </p:menubar> 
+</h:form>
 
         <div class="container">
             <br/><br/><br/>
@@ -100,23 +56,6 @@
                 <p class="muted credit">JSR 354: Money and Currency </p>
             </div>
         </div>
-
-
-        <!-- Modal -->
-        <div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="loginModallLabel">Login</h3>
-            </div>
-
-        </div>
-
-
-
-        <script
-        src="http://code.jquery.com/jquery-latest.js"></script>
-        <h:outputScript name="bootstrap.min.js" library="javascript"/>
 
     </h:body>
 

@@ -25,6 +25,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -43,6 +44,7 @@ public class UserTest {
     public void tearDown() {
     }
 
+    @Ignore
     @Test
     public void testAddANewUser() {
 
@@ -56,6 +58,7 @@ public class UserTest {
 
     }
 
+    @Ignore
     @Test
     public void testAddNewUserFavorite() {
         TsUsersFavorite userFavorite = new TsUsersFavorite();
