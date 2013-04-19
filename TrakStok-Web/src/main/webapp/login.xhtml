@@ -6,32 +6,27 @@
                 template="WEB-INF/template/default.xhtml">
     <ui:define name="title">TrakStok</ui:define>
 
-
     <ui:define name="content">    
 
         <h:form>
             <p:growl id="growl" showDetail="true" showSummary="false" sticky="false"  />  
+            <p:panel id="panel" header="Login"> 
+                <p:focus context="panel"/> 
+                <center>
+                    <p:panelGrid columns="2" >  
 
+                        <h:outputLabel for="userName" value="Enter your UserName: " />  
+                        <p:inputText id="userName" value="#{loginBean.userName}" />
 
-            <center>
-                <p:panelGrid columns="2" >  
-                    <f:facet name="header">  
-                        Login 
-                    </f:facet>  
+                        <h:outputLabel for="password" value="Enter your Password: " />  
+                        <p:password id="password" value="#{loginBean.password}" />
 
-                    <h:outputLabel for="userName" value="Enter your UserName: " />  
-                    <p:inputText id="userName" value="#{loginBean.userName}" />
-
-                    <h:outputLabel for="password" value="Enter your Password: " />  
-                    <p:password id="password" value="#{loginBean.password}" feedback="true" />
-
-                    <f:facet name="footer">  
-                        <p:commandButton ajax="false" action="${loginBean.whenLogin}" value="Login" update="growl"/>  
-                    </f:facet>  
-                </p:panelGrid>  
-            </center>
-
-
+                        <f:facet name="footer" >  
+                            <p:commandButton ajax="false" action="${loginBean.whenLogin}" value="Login" update="growl"/>  
+                        </f:facet>  
+                    </p:panelGrid>  
+                </center>
+            </p:panel>
 
         </h:form>
     </ui:define>

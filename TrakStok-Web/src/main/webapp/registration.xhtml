@@ -8,29 +8,27 @@
 
     <ui:define name="content">
         <h:form >
-             <p:growl id="growl" showDetail="true" showSummary="false" sticky="false"  />  
-            
-             <center> <p:panelGrid columns="2" >  
-                <f:facet name="header">  
-                    Registration Form 
-                </f:facet>  
+      <p:growl id="growl" showDetail="true" showSummary="false" sticky="false"  />
+            <p:panel id="panel" header="Registration"> 
+                <p:focus context="panel"/> 
+                <center>
+                    <p:panelGrid columns="2" >  
 
-                <h:outputLabel for="userName" value="Display Name: " />  
-                <p:inputText id="displayName" value="#{registrationBean.displayName}" />
+                        <h:outputLabel for="userName" value="Display Name: " />  
+                        <p:inputText id="displayName" value="#{registrationBean.displayName}" />
 
-                <h:outputLabel for="password" value="User Name: " />  
-                 <p:inputText id="userName" value="#{registrationBean.userName}"  />
-                 
-                  <h:outputLabel for="password" value="Password: " />  
-                  <p:password id="password" redisplay="false" value="#{registrationBean.password}" feedback="true"/>
+                        <h:outputLabel for="password" value="User Name: " />  
+                        <p:inputText id="userName" value="#{registrationBean.userName}"  />
 
-                <f:facet name="footer">  
-                    <p:commandButton action="${registrationBean.whenRegisteration}" value="Registration" update="growl"/>  
-                    
-                </f:facet>  
-            </p:panelGrid>  
-             </center>
-            
+                        <h:outputLabel for="password" value="Password: " />  
+                        <p:password id="password" redisplay="false" value="#{registrationBean.password}" feedback="true"/>
+
+                        <f:facet name="footer" >  
+                            <p:commandButton action="${registrationBean.whenRegisteration}" value="Registration" update="growl"/>  
+                        </f:facet>  
+                    </p:panelGrid>  
+                </center>
+            </p:panel>
         </h:form>
 
     </ui:define>
