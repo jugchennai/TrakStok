@@ -50,6 +50,11 @@ public class CompanyService {
         eManager.getTransaction().commit();
         return true;
     }
+    
+    public static Collection<TsCompany> findAllCompanies() {
+        return (Collection<TsCompany>) eManager.createNamedQuery("TsCompany.findAll")
+                .getResultList();
+    }
 
     public static Collection<TsCompany> findBySymbol(String symbol) {
         return (Collection<TsCompany>) eManager.createNamedQuery("TsCompany.findBySymbol")
