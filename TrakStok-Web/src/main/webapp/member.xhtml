@@ -16,6 +16,7 @@
         <f:view>
             <h:form>
                 <p align="center">
+                   <p:growl id="growl" showDetail="true" showSummary="false" sticky="false"  />
                     <p:dashboard id="board" model="#{dashboardBean.model}" >  
                         <p:ajax event="reorder" update="growl" />  
 
