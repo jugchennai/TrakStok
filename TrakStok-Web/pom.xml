@@ -56,7 +56,7 @@
         
         <dependency>  
             <groupId>org.primefaces.themes</groupId>  
-            <artifactId>smoothness</artifactId>  
+            <artifactId>sam</artifactId>  
             <version>1.0.9</version>  
         </dependency>
         

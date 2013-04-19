@@ -7,7 +7,7 @@
     
     <context-param>  
         <param-name>primefaces.THEME</param-name>  
-        <param-value>smoothness</param-value>  
+        <param-value>sam</param-value>  
     </context-param>  
     
     <servlet>
