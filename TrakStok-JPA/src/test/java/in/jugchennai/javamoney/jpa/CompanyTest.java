@@ -16,7 +16,14 @@
 package in.jugchennai.javamoney.jpa;
 
 import in.jugchennai.javamoney.jpa.service.CompanyService;
+import in.jugchennai.javamoney.jpa.service.entity.TrendFrequency;
 import in.jugchennai.javamoney.jpa.service.entity.TsCompany;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.Assert.*;
 import org.junit.Before;
@@ -50,5 +57,31 @@ public class CompanyTest {
         theCompany.setSymbol("SUN");
 
         assertTrue("User or Company not found.", CompanyService.addCompany(theCompany));
+    }
+        
+    
+    @Test
+    public void testGetDailyTrend() {
+
+        String symbol = "GOOG";
+        
+        System.out.println(CompanyService.getTrendMap(symbol,TrendFrequency.DAILY, getDefaultFromDate(), getDefaultToDate()));
+    }
+    
+    private Date getDefaultFromDate(){        
+        GregorianCalendar calendar = (GregorianCalendar) GregorianCalendar.getInstance();  
+        calendar.add(calendar.DAY_OF_MONTH, -(Integer.parseInt(new SimpleDateFormat("dd").format(calendar.getTime()))-1));
+        SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            return sf.parse(sf.format(calendar.getTime()));
+        } catch (ParseException ex) {
+            Logger.getLogger(CompanyTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    private Date getDefaultToDate(){        
+        GregorianCalendar calendar = (GregorianCalendar) GregorianCalendar.getInstance();                
+        return calendar.getTime();
     }
 }
