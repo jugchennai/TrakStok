@@ -41,7 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TsCompany.findAll", query = "SELECT t FROM TsCompany t"),
     @NamedQuery(name = "TsCompany.findByCompanyid", query = "SELECT t FROM TsCompany t WHERE t.companyid = :companyid"),
     @NamedQuery(name = "TsCompany.findByDisplayname", query = "SELECT t FROM TsCompany t WHERE t.displayname = :displayname"),
-    @NamedQuery(name = "TsCompany.findBySymbol", query = "SELECT t FROM TsCompany t WHERE t.symbol = :symbol")})
+    @NamedQuery(name = "TsCompany.findBySymbol", query = "SELECT t FROM TsCompany t WHERE t.symbol = :symbol"),
+    @NamedQuery(name = "TsCompany.listBySymbol", query = "SELECT t FROM TsCompany t WHERE upper(t.symbol) like upper(:symbol)")})
 public class TsCompany implements Serializable {
 
     private static final long serialVersionUID = 1L;
