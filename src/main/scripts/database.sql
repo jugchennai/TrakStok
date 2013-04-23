@@ -36,3 +36,6 @@ amount float,
 FOREIGN KEY (companyid) REFERENCES TS_COMPANY(companyid)
 );
 
+/*Inserting initial sample Companies */
+insert into TS_COMPANY (displayname,symbol) values ('Google','GOOG');
+insert into TS_COMPANY (displayname,symbol) values ('Yahoo','YAHOO');
