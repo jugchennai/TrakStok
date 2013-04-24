@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2013 JUGChennai.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:p="http://primefaces.org/ui" 
+                template="WEB-INF/template/template.xhtml">
+    <ui:define name="title">TrakStok</ui:define>
+
+    <ui:define name="content">
+        <style type="text/css">
+            .ui-panel{                
+                margin-right: 30px;
+            }
+        </style>
+        <f:view>
+            <h:form>
+                <p align="center">
+                   <p:growl id="growl" showDetail="true" showSummary="false" sticky="false"  />
+                   <p:panel header="Select Company">  
+                    <h:panelGrid columns="3" cellpadding="5">  
+                        <h:outputLabel value="Company: " for="company"/>  
+                        <p:autoComplete value="#{companyBean.symbol}" id="company" completeMethod="#{companyBean.listBySymbol}"  
+                                        var="p" itemLabel="#{p.symbol}" itemValue="#{p.symbol}" forceSelection="true"
+                                        />
+                        <p:commandButton id="show" value="Show" update="companyTrend" />                          
+                    </h:panelGrid>  
+                </p:panel>
+                
+                <p:panel id="companyProfile" header="Company Profile">  
+                    <p:lineChart id="companyTrend" value="#{companyBean.trendModel}" 
+                                 legendPosition="ne" title="Company Trend" minY="0" maxY="500"                                 
+                                 xaxisLabel="Date" yaxisLabel="Share Value" />                                 
+                </p:panel>
+                </p>
+            </h:form>
+        </f:view> 
+    </ui:define>
+
+</ui:composition>
