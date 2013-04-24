@@ -33,18 +33,22 @@ limitations under the License.
                 <p align="center">
                    <p:growl id="growl" showDetail="true" showSummary="false" sticky="false"  />
                    <p:panel header="Select Company">  
-                    <h:panelGrid columns="4" cellpadding="5">  
+                    <h:panelGrid columns="6" cellpadding="5">  
                         <h:outputLabel value="Company: " for="company"/>  
                         <p:autoComplete value="#{companyBean.symbol}" id="company" completeMethod="#{companyBean.listBySymbol}"  
                                         var="p" itemLabel="#{p.symbol}" itemValue="#{p.symbol}" forceSelection="true"
                                         />
-                        <p:commandButton id="show" value="Show" update="companyTrend" />
-                        <p:commandLink id="linkCompareCompany"  action="#{companyBean.compare}" value="Compare Companies" />
+                        <h:outputLabel value="Compare With - " for="anotherCompany"/>  
+                        <p:autoComplete value="#{companyBean.anotherCompanySymbol}" id="anotherCompany" completeMethod="#{companyBean.listBySymbol}"  
+                                        var="p" itemLabel="#{p.symbol}" itemValue="#{p.symbol}" forceSelection="true"
+                                        />
+                        <p:commandButton id="compare" value="Compare" update="companyTrend" />
+                        
                     </h:panelGrid>  
                 </p:panel>
                 
                 <p:panel id="companyProfile" header="Company Profile">  
-                    <p:lineChart id="companyTrend" value="#{companyBean.trendModel}" 
+                    <p:lineChart id="companyTrend" value="#{companyBean.compareTrendModel}" 
                                  legendPosition="ne" title="Company Trend" minY="0" maxY="500"                                 
                                  xaxisLabel="Date" yaxisLabel="Share Value" />                                 
                 </p:panel>

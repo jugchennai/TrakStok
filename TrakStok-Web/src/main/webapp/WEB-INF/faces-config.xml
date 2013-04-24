@@ -32,5 +32,15 @@
             <to-view-id>/login.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <display-name>Company.xhtml</display-name>
+        <from-view-id>/company.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>compare</from-outcome>
+            <to-view-id>/comparecompany.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>        
+    </navigation-rule>
         
 </faces-config>
