@@ -15,12 +15,18 @@
  */
 package in.jugchennai.javamoney.jpa.service;
 
+import in.jugchennai.javamoney.jpa.service.entity.TrendFrequency;
 import in.jugchennai.javamoney.jpa.service.entity.TsCompany;
+import in.jugchennai.javamoney.jpa.service.entity.TsStockInflection;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -60,6 +66,41 @@ public class CompanyService {
         return (Collection<TsCompany>) eManager.createNamedQuery("TsCompany.findBySymbol")
                 .setParameter("symbol", symbol)
                 .getResultList();
+    }
+    
+    public static Collection<TsCompany> listBySymbol(String symbol) {
+        return (Collection<TsCompany>) eManager.createNamedQuery("TsCompany.listBySymbol")
+                .setParameter("symbol", symbol+"%")
+                .getResultList();
+    }
+    
+    public static LinkedHashMap<Object, Number> getTrendMap(String symbol, TrendFrequency frequency, Date fromDate, Date toDate) {
+        switch(frequency){
+            case DAILY :
+                return getDailyTrend(symbol,fromDate,toDate);            
+            default:
+                return getDailyTrend(symbol,fromDate,toDate);
+        }        
+    }
+
+    private static LinkedHashMap<Object, Number> getDailyTrend(String symbol, Date fromDate, Date toDate) {
+        LinkedHashMap<Object, Number> trendMap = new LinkedHashMap<Object, Number>();
+        Query qry = eManager.createNamedQuery("TsStockInflection.dailyTrendForSymbol");
+        qry.setParameter("symbol", symbol);
+        qry.setParameter("fromdate", fromDate);
+        qry.setParameter("todate", toDate);
+        Collection<TsStockInflection> trend = qry.getResultList();        
+        SimpleDateFormat sf = new SimpleDateFormat("dd MMM");
+        SimpleDateFormat sfh = new SimpleDateFormat("HH");
+        for(TsStockInflection t : trend){           
+            //Get the last entry of the day which is at 5PM, so harcoded the 5 PM
+            //If we could enable this criteria in query, it is well and fine
+            if(sfh.format(t.getDatetime()).equals("05")){
+                trendMap.put(sf.format(t.getDatetime()), t.getAmount());
+            }            
+        }
+        log.info(trendMap.toString());
+        return trendMap;
     }
 
     @Override

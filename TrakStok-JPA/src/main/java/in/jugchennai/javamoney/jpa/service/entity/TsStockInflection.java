@@ -43,7 +43,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TsStockInflection.findAll", query = "SELECT t FROM TsStockInflection t"),
     @NamedQuery(name = "TsStockInflection.findByInflectionid", query = "SELECT t FROM TsStockInflection t WHERE t.inflectionid = :inflectionid"),
     @NamedQuery(name = "TsStockInflection.findByDatetime", query = "SELECT t FROM TsStockInflection t WHERE t.datetime = :datetime"),
-    @NamedQuery(name = "TsStockInflection.findByAmount", query = "SELECT t FROM TsStockInflection t WHERE t.amount = :amount")})
+    @NamedQuery(name = "TsStockInflection.findByAmount", query = "SELECT t FROM TsStockInflection t WHERE t.amount = :amount"),
+    @NamedQuery(name = "TsStockInflection.dailyTrendForSymbol", query = "SELECT t FROM TsStockInflection t WHERE t.companyid.symbol = :symbol and t.datetime between :fromdate and :todate order by t.inflectionid")})
 public class TsStockInflection implements Serializable {
 
     private static final long serialVersionUID = 1L;
