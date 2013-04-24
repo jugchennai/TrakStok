@@ -40,6 +40,7 @@ public class CompanyBean extends TSBaseFormBean {
     private Integer companyid;
     private String displayname;
     private String symbol;
+    private String anotherCompanySymbol;    
 
     public CompanyBean() {
         logger = Logger.getLogger(CompanyBean.class);
@@ -75,6 +76,14 @@ public class CompanyBean extends TSBaseFormBean {
         this.symbol = symbol;
     }
     
+    public String getAnotherCompanySymbol() {
+        return anotherCompanySymbol;
+    }
+
+    public void setAnotherCompanySymbol(String anotherCompanySymbol) {
+        this.anotherCompanySymbol = anotherCompanySymbol;
+    }       
+    
     public Collection<TsCompany> getAllCompanies() {
         return (Collection<TsCompany>)CompanyService.findAllCompanies();
     }
@@ -92,18 +101,57 @@ public class CompanyBean extends TSBaseFormBean {
         logger.info("From Date "+getDefaultFromDate());
         logger.info("To Date "+getDefaultToDate());
         String symbol = null;
-        if(getSymbol() != null){
+        if(getSymbol() != null && !getSymbol().equals("")){
                symbol = getSymbol();          
         }else{
             for (TsCompany company : (Collection<TsCompany>)CompanyService.findAllCompanies()){
                 symbol = company.getSymbol();
+                if(symbol == null || symbol.equals("")){
+                    continue;
+                }
                 break;
             }
         }        
         ChartSeries scrip = new ChartSeries(symbol);
         scrip.setData(getTrendMap(symbol, TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate()));        
         trendModel.addSeries(scrip);
-                
+        
+        return trendModel;
+    }
+    
+    public String compare(){
+        return "compare";
+    }
+    
+    public CartesianChartModel getCompareTrendModel(){
+        CartesianChartModel trendModel = new CartesianChartModel();
+        logger.debug("Symbol "+getSymbol());
+        logger.debug("From Date "+getDefaultFromDate());
+        logger.debug("To Date "+getDefaultToDate());
+        String symbol = null;
+        if(getSymbol() != null && !getSymbol().equals("")){
+               symbol = getSymbol();          
+        }else{
+            for (TsCompany company : (Collection<TsCompany>)CompanyService.findAllCompanies()){
+                symbol = company.getSymbol();
+                if(symbol == null || symbol.equals("")){
+                    continue;
+                }
+                break;
+            }
+        }        
+        ChartSeries scrip = new ChartSeries(symbol);
+        scrip.setData(getTrendMap(symbol, TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate()));        
+        trendModel.addSeries(scrip);
+        
+        logger.debug("Another symbol "+getAnotherCompanySymbol());        
+        if(getAnotherCompanySymbol() != null && !getAnotherCompanySymbol().equals("")){
+            ChartSeries anotherScrip = new ChartSeries(getAnotherCompanySymbol());
+            anotherScrip.setData(getTrendMap(getAnotherCompanySymbol(), TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate()));        
+            trendModel.addSeries(anotherScrip);
+        }
+        
+        logger.debug(trendModel.getSeries());
         return trendModel;
     }
 
