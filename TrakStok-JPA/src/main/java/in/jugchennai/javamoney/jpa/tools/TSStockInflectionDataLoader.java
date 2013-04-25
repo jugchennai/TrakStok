@@ -131,7 +131,7 @@ public class TSStockInflectionDataLoader {
             stmt = conn.createStatement();
 
             Iterator<Integer> listItr = companies.iterator();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Integer companyID;
             Integer stockValue;
             Integer maxStockVariation = getMaxStockVariation();
