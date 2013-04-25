@@ -61,6 +61,8 @@
     <modules>
         <module>TrakStok-JPA</module>
         <module>TrakStok-Web</module>
+        <module>TrakStok-JavaMoney</module>
+        <module>TrakStok-Restful</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
