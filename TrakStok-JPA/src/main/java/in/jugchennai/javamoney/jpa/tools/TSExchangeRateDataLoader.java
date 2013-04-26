@@ -16,11 +16,9 @@
 package in.jugchennai.javamoney.jpa.tools;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -59,7 +57,8 @@ public class TSExchangeRateDataLoader {
             try {
                 dbDataLoader.insertStockRate(stokList);
             } catch (ParseException ex) {
-                Logger.getLogger(TSExchangeRateDataLoader.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TSExchangeRateDataLoader.class.getName())
+                        .log(Level.SEVERE, null, ex);
             }
 
             System.out.println("-Done-");
@@ -83,7 +82,8 @@ public class TSExchangeRateDataLoader {
 
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TSStockInflectionDataLoader.class.getName()).log(Level.SEVERE, "Error loading jdbc driver", ex);
+            Logger.getLogger(TSStockInflectionDataLoader.class.getName())
+                    .log(Level.SEVERE, "Error loading jdbc driver", ex);
         }
     }
 
@@ -94,33 +94,42 @@ public class TSExchangeRateDataLoader {
              * } else {}*/
             conn = DriverManager.getConnection(DATABASE);
             conn.setAutoCommit(false);
-            pstmt = conn.prepareStatement("INSERT INTO TS_EXCHANGE_RATE (CURRENCY_CODE, EXCHANGE_DATE, RATE, SOURCE_CURRENCY_CODE) values(?,?,?,?)");
+            pstmt = conn.prepareStatement("INSERT INTO TS_EXCHANGE_RATE"
+                    + " (CURRENCY_CODE, EXCHANGE_DATE, RATE,"
+                    + " SOURCE_CURRENCY_CODE) values(?,?,?,?)");
 
             int j = 0;
             for (Cube cube : stokList) {
+                
                 pstmt.setString(1, cube.getCurrency());
-                System.out.println(cube.getCurrency());
-                pstmt.setDate(2, new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse(cube.getDate()).getTime()));
-                System.out.println(new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse(cube.getDate()).getTime()));
+               
+                pstmt.setDate(2, new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd")
+                        .parse(cube.getDate()).getTime()));
+             
                 pstmt.setDouble(3, Double.parseDouble(cube.getRate()));
-                System.out.println(Double.parseDouble(cube.getRate()));
+               
                 pstmt.setString(4, SOURCE_CURRENCY_COCE);
-                System.out.println(SOURCE_CURRENCY_COCE);
+                
+                pstmt.addBatch();
+               
                 if ((j + 1) % 100 == 0) {
                     pstmt.executeBatch();// will execute batch update process for every 100 element.
                 }
                 j++;
+                System.out.println(j);
             }
             pstmt.executeBatch();
             conn.commit();
         } catch (SQLException ex) {
-            Logger.getLogger(TSExchangeRateDataLoader.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TSExchangeRateDataLoader.class.getName())
+                    .log(Level.SEVERE, null, ex);
             if (conn != null) {
                 System.err.println("Transaction is being rolled back");
                 try {
                     conn.rollback();
                 } catch (SQLException ex1) {
-                    Logger.getLogger(TSExchangeRateDataLoader.class.getName()).log(Level.SEVERE, null, ex1);
+                    Logger.getLogger(TSExchangeRateDataLoader.class.getName())
+                            .log(Level.SEVERE, null, ex1);
                 }
             }
         } finally {
@@ -133,7 +142,8 @@ public class TSExchangeRateDataLoader {
                     conn.close();
                 }
             } catch (Exception e) {
-                Logger.getLogger(TSExchangeRateDataLoader.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(TSExchangeRateDataLoader.class.getName())
+                        .log(Level.SEVERE, null, e);
             }
         }
 

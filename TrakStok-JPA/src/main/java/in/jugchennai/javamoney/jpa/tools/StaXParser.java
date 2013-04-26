@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -16,71 +18,70 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
 public class StaXParser {
-	static final String CUBE = "Cube";
-	static final String DATE = "time";
-	static final String RATE = "rate";
-	static final String CURRENCY = "currency";
 
-	@SuppressWarnings("unchecked")
-	public List<Cube> readConfig(String configFile) {
-		List<Cube> cubes = new ArrayList<Cube>();
-		try {
-			XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-			InputStream in = new FileInputStream(configFile);
-			XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
-			Cube cube = null;
-			String tempDate = null;
-			while (eventReader.hasNext()) {
-				XMLEvent event = eventReader.nextEvent();
-				//System.out.println(event);
-				if (event.isStartElement()) {
-					StartElement startElement = event.asStartElement();
+    static final String CUBE = "Cube";
+    static final String DATE = "time";
+    static final String RATE = "rate";
+    static final String CURRENCY = "currency";
 
-					if (startElement.getName().getLocalPart().equals(CUBE)) {
+    @SuppressWarnings("unchecked")
+    public List<Cube> readConfig(String configFile) {
+        List<Cube> cubes = new ArrayList<>();
+        try {
+            XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+            InputStream in = new FileInputStream(configFile);
+            XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
+            Cube cube = null;
+            String tempDate = null;
+            while (eventReader.hasNext()) {
+                XMLEvent event = eventReader.nextEvent();
+                //System.out.println(event);
+                if (event.isStartElement()) {
+                    StartElement startElement = event.asStartElement();
 
-						Iterator<Attribute> attributes = startElement
-								.getAttributes();
+                    if (startElement.getName().getLocalPart().equals(CUBE)) {
 
-						while (attributes.hasNext()) {
+                        Iterator<Attribute> attributes = startElement
+                                .getAttributes();
 
-							Attribute attribute = attributes.next();
+                        while (attributes.hasNext()) {
 
-							if (attribute.getName().toString().equals(DATE)) {
+                            Attribute attribute = attributes.next();
 
-								tempDate = attribute.getValue();
+                            if (attribute.getName().toString().equals(DATE)) {
 
-							} else {
-								
-								if (attribute.getName().toString().equals(RATE)) {
-									cube = new Cube();
-									cube.setDate(tempDate);
-									cube.setRate(attribute.getValue());
-								} else if (attribute.getName().toString()
-										.equals(CURRENCY)) {
-									cube.setCurrency(attribute.getValue());
-								}
+                                tempDate = attribute.getValue();
 
-							}
-						}
-					}
+                            } else {
 
-					
-				}else{
-					if (event.isEndElement()) {
-						EndElement endElement = event.asEndElement();
-						if (endElement.getName().getLocalPart() == (CUBE)) {
-							cubes.add(cube);
-						}
-					}
-				}
+                                if (attribute.getName().toString().equals(RATE)) {
+                                    cube = new Cube();
+                                    cube.setDate(tempDate);
+                                    cube.setRate(attribute.getValue());
+                                } else if (attribute.getName().toString()
+                                        .equals(CURRENCY) && attribute.getValue() != null) {
+                                    cube.setCurrency(attribute.getValue());
+                                }
 
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (XMLStreamException e) {
-			e.printStackTrace();
-		}
-		return cubes;
-	}
+                            }
+                        }
+                    }
 
+
+                } else {
+                    if (event.isEndElement()) {
+                        EndElement endElement = event.asEndElement();
+                        if (endElement.getName().getLocalPart().equals(CUBE)) {
+                            cubes.add(cube);
+                        }
+                    }
+                }
+
+            }
+        } catch (FileNotFoundException | XMLStreamException e) {
+            Logger.getLogger(StaXParser.class.getName())
+                    .log(Level.SEVERE, null, e);
+        }
+        return cubes;
+    }
 }
