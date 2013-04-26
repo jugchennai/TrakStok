@@ -61,7 +61,7 @@ public class TSExchangeRateDataLoader {
                         .log(Level.SEVERE, null, ex);
             }
 
-            System.out.println("-Done-");
+            System.out.println("-Done! XML inported to TS_EXCHANGE_RATE-");
 
 
         } else {
@@ -116,7 +116,7 @@ public class TSExchangeRateDataLoader {
                     pstmt.executeBatch();// will execute batch update process for every 100 element.
                 }
                 j++;
-                System.out.println(j);
+             //   System.out.println(j);
             }
             pstmt.executeBatch();
             conn.commit();
