@@ -1,6 +1,17 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2013 JUGChennai.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package in.jugchennai.javamoney.jpa.tools;
 
@@ -43,36 +54,32 @@ public class TSStockInflectionDataLoader {
     private Random maxStockVariationRandom = new Random();
 
     /**
-     * Expects to-date and from-date in dd/mm/yyyy format as inputs
+     *
      *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
 
-        if (args == null || args.length < 2) {
-
-            System.out.println("Requied toDate (dd/mm/yyyy)");
-            System.out.println("Requied fromDate (dd/mm/yyyy)");
-            System.out.println("Optional dbUser");
-            System.out.println("Optional dbPassword");
-
-            System.exit(0);
-        }
-
-
 
         TSStockInflectionDataLoader control = new TSStockInflectionDataLoader();
 
-        control.fromDate = args[0];
-        control.toDate = args[1];
-
+        if (args != null && args.length == 2) {
+            control.dbUser = args[0];
+            control.dbPassword = args[1];
+        }
         if (args != null && args.length == 4) {
-            control.dbUser = args[2];
-            control.dbPassword = args[3];
+            control.fromDate = args[2];
+            control.toDate = args[3];
         }
 
         control.loadDriver();
-        control.valAndSetDates();
+        control.openDBConnection();
+       
+        if (control.fromDate != null && control.toDate != null) {
+            control.valAndSetDates();
+        } else {
+            control.syncExchangeRateDates();
+        }
         control.insertDummyStockInflection();
 
         System.out.println("-Done-");
@@ -93,6 +100,20 @@ public class TSStockInflectionDataLoader {
         }
     }
 
+    public void openDBConnection() {
+        try {
+            if (dbUser != null && dbPassword != null) {
+                conn = DriverManager.getConnection(DATABASE, dbUser, dbPassword);
+            } else {
+                conn = DriverManager.getConnection(DATABASE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TSStockInflectionDataLoader.class.getName()).log(Level.SEVERE, "Error connecting to database", ex);
+            System.exit(0);
+        }
+
+    }
+
     /**
      * Find the list of companies and add dummy stock inflection for each hour
      * of the day (between 10am to 5pm) excluding weekends for each day between
@@ -101,11 +122,7 @@ public class TSStockInflectionDataLoader {
      */
     public void insertDummyStockInflection() {
         try {
-            if (dbUser != null && dbPassword != null) {
-                conn = DriverManager.getConnection(DATABASE, dbUser, dbPassword);
-            } else {
-                conn = DriverManager.getConnection(DATABASE);
-            }
+
             stmt = conn.createStatement();
 
             ResultSet rs = stmt.executeQuery("select TS_COMPANY.COMPANYID from TS_COMPANY");
@@ -224,6 +241,31 @@ public class TSStockInflectionDataLoader {
 
         if (fromD.after(toD)) {
             System.out.println("To-Date must be after from-Date");
+            System.exit(0);
+        }
+
+    }
+
+    private void syncExchangeRateDates() {
+        try {
+            stmt = conn.createStatement();
+
+            ResultSet rs = stmt.executeQuery("select MIN(EXCHANGE_DATE) as FROM_DATE, MAX(EXCHANGE_DATE) as TO_DATE from  TS_EXCHANGE_RATE group by CURRENCY_CODE");
+            if (rs.next()) {
+
+                Date from = rs.getDate(1);
+                Date to = rs.getDate(2);
+
+                fromD = Calendar.getInstance();
+                fromD.setTime(from);
+                toD = Calendar.getInstance();
+                toD.setTime(to);
+                toD.add(Calendar.DAY_OF_MONTH, 1);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(TSStockInflectionDataLoader.class.getName()).log(Level.SEVERE, "", ex);
             System.exit(0);
         }
 
