@@ -19,13 +19,11 @@ import in.jugchennai.javamoney.jpa.service.UserService;
 import in.jugchennai.javamoney.jpa.service.entity.TsUsers;
 import java.util.Collection;
 import java.util.Date;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.apache.log4j.Logger;
 
 /**
  * Login form bean and controller method for login.xhtml page.
@@ -47,14 +45,14 @@ public class LoginBean extends TSBaseFormBean {
     private String password;
 
     public LoginBean(String userName, String password) {
-        logger = Logger.getLogger(LoginBean.class);
+      
         this.userName = userName;
         this.password = password;
         this.logged = false;
     }
 
     public LoginBean() {
-        logger = Logger.getLogger(LoginBean.class);
+       
     }
 
     public String getUserName() {

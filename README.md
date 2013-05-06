@@ -26,6 +26,10 @@ JSR 354: Money and Currency API
 * **Format** This area defines APIs/SPIs for formatting and parsing of currencies and monetary amounts, providing support for complex usage scenarios.
 * **Extensions** This area defines additional functionas and utilities that are registered/accessible using the Java Money extensions SPI. 
 
+NOTE:
+=====
+TrakStok-JavaFX - Is using [JavaFX Maven plugin](https://github.com/zonski/javafx-maven-plugin). To setup such project you can find it [here](http://www.zenjava.com/2012/11/24/from-zero-to-javafx-in-5-minutes/).
+
 License
 ========
  Copyright 2013 JUGChennai.
