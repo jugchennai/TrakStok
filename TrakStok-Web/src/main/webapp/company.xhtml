@@ -33,10 +33,14 @@ limitations under the License.
                 <p align="center">
                    <p:growl id="growl" showDetail="true" showSummary="false" sticky="false"  />
                    <p:panel header="Select Company">  
-                    <h:panelGrid columns="4" cellpadding="5">  
+                    <h:panelGrid columns="5" cellpadding="5">  
                         <h:outputLabel value="Company: " for="company"/>  
                         <p:autoComplete value="#{companyBean.symbol}" id="company" completeMethod="#{companyBean.listBySymbol}"  
                                         var="p" itemLabel="#{p.symbol}" itemValue="#{p.symbol}" forceSelection="true"
+                                        />
+                        <h:outputLabel value="Currency: " for="targetCurrencr"/>
+                        <p:autoComplete value="#{companyBean.targetCurrency}" id="targetCurrencr" completeMethod="#{companyBean.getCurrencyList}"  
+                                        var="p" itemLabel="#{p.currencyCode}" itemValue="#{p.currencyCode}" forceSelection="true"
                                         />
                         <p:commandButton id="show" value="Show" update="companyTrend" />
                         <p:commandLink id="linkCompareCompany"  action="#{companyBean.compare}" value="Compare Companies" />
@@ -45,7 +49,7 @@ limitations under the License.
                 
                 <p:panel id="companyProfile" header="Company Profile">  
                     <p:lineChart id="companyTrend" value="#{companyBean.trendModel}" 
-                                 legendPosition="ne" title="Company Trend" minY="0" maxY="500"                                 
+                                 legendPosition="ne" title="Company Trend" minY="0" maxY="5000"                                 
                                  xaxisLabel="Date" yaxisLabel="Share Value" />                                 
                 </p:panel>
                 </p>

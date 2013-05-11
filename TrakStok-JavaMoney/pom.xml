@@ -41,6 +41,31 @@
             <artifactId>cdi-api</artifactId>
             <version>1.0</version>
         </dependency>
+        
+        <dependency>
+            <groupId>javax.money</groupId>
+            <artifactId>money-api-convert</artifactId>
+            <version>0.5-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.money</groupId>
+            <artifactId>money-api-ext</artifactId>
+            <version>0.5-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.money</groupId>
+            <artifactId>money-api-format</artifactId>
+            <version>0.5-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency> 
+        <dependency>
+            <groupId>net.java.javamoney</groupId>
+            <artifactId>money-ri</artifactId>
+            <version>0.5-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
