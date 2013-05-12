@@ -7,6 +7,7 @@
     <class>in.jugchennai.javamoney.jpa.service.entity.TsUsersFavorite</class>
     <class>in.jugchennai.javamoney.jpa.service.entity.TsCompany</class>
     <class>in.jugchennai.javamoney.jpa.service.entity.TsUsers</class>
+    <class>in.jugchennai.javamoney.jpa.service.entity.TsCurrency</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/trakstok"/>
       <property name="javax.persistence.jdbc.password" value="APP"/>

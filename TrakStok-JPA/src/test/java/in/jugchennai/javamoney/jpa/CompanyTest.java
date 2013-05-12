@@ -51,4 +51,12 @@ public class CompanyTest {
 
         assertTrue("User or Company not found.", CompanyService.addCompany(theCompany));
     }
+    
+    @Ignore
+    @Test
+    public void tesGetCurrencyList() {
+
+        String currencyCode = "US";
+        System.out.println(CompanyService.getCurrencyList(currencyCode));
+    }
 }

@@ -17,11 +17,14 @@ package in.jugchennai.javamoney.jpa.service;
 
 import in.jugchennai.javamoney.jpa.service.entity.TrendFrequency;
 import in.jugchennai.javamoney.jpa.service.entity.TsCompany;
+import in.jugchennai.javamoney.jpa.service.entity.TsCurrency;
 import in.jugchennai.javamoney.jpa.service.entity.TsStockInflection;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -82,6 +85,15 @@ public class CompanyService {
                 return getDailyTrend(symbol,fromDate,toDate);
         }        
     }
+    
+    public static List<TsCurrency> getCurrencyList(String currencyCode) {
+        List<TsCurrency> currencyList = new ArrayList<TsCurrency>();
+        Query qry = eManager.createNamedQuery("TsCurrency.searchByCurrencyCode");
+        qry.setParameter("currencyCode", currencyCode+"%");
+        currencyList = qry.getResultList();
+        log.info("currency list is "+currencyList.toString());
+        return currencyList;
+    }
 
     private static LinkedHashMap<Object, Number> getDailyTrend(String symbol, Date fromDate, Date toDate) {
         LinkedHashMap<Object, Number> trendMap = new LinkedHashMap<Object, Number>();
@@ -95,7 +107,7 @@ public class CompanyService {
         for(TsStockInflection t : trend){           
             //Get the last entry of the day which is at 5PM, so harcoded the 5 PM
             //If we could enable this criteria in query, it is well and fine
-            if(sfh.format(t.getDatetime()).equals("05")){
+            if(sfh.format(t.getDatetime()).equals("17")){
                 trendMap.put(sf.format(t.getDatetime()), t.getAmount());
             }            
         }
