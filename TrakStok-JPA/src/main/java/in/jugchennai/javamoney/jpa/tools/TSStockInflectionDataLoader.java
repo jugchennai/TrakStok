@@ -17,6 +17,7 @@ package in.jugchennai.javamoney.jpa.tools;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -74,13 +75,16 @@ public class TSStockInflectionDataLoader {
 
         control.loadDriver();
         control.openDBConnection();
-       
+
         if (control.fromDate != null && control.toDate != null) {
             control.valAndSetDates();
         } else {
             control.syncExchangeRateDates();
         }
+
+        control.deleteBeforeInsert();
         control.insertDummyStockInflection();
+        control.closeDBConnection();
 
         System.out.println("-Done-");
 
@@ -111,6 +115,20 @@ public class TSStockInflectionDataLoader {
             Logger.getLogger(TSStockInflectionDataLoader.class.getName()).log(Level.SEVERE, "Error connecting to database", ex);
             System.exit(0);
         }
+
+    }
+
+    public void closeDBConnection() {
+        try {
+            if (conn != null) {
+                conn.close();
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TSStockInflectionDataLoader.class.getName()).log(Level.SEVERE, "Error connecting to database", ex);
+            System.exit(0);
+        }
+
 
     }
 
@@ -324,5 +342,22 @@ public class TSStockInflectionDataLoader {
      */
     private int getMaxStockVariation() {
         return maxStockVariationRandom.nextInt(1000) + 1;
+    }
+
+    /**
+     * Clean up the table
+     */
+    private void deleteBeforeInsert() {
+
+        try {
+
+            PreparedStatement pstmt = conn.prepareStatement("delete from TS_STOCK_INFLECTION");
+            pstmt.execute();
+            pstmt.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(TSStockInflectionDataLoader.class.getName()).log(Level.SEVERE, "", ex);
+            System.exit(0);
+        }
     }
 }
