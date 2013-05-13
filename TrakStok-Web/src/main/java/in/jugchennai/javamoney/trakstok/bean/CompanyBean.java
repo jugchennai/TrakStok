@@ -15,9 +15,12 @@
  */
 package in.jugchennai.javamoney.trakstok.bean;
 
+import in.jugchennai.javamoney.convert.CurrencyConverter;
+import in.jugchennai.javamoney.convert.CurrencyConverterImpl;
 import in.jugchennai.javamoney.jpa.service.CompanyService;
 import in.jugchennai.javamoney.jpa.service.entity.TrendFrequency;
 import in.jugchennai.javamoney.jpa.service.entity.TsCompany;
+import in.jugchennai.javamoney.jpa.service.entity.TsCurrency;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -25,7 +28,10 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.money.Money;
+import javax.money.MoneyCurrency;
 import org.apache.log4j.Logger;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.ChartSeries;
@@ -40,7 +46,9 @@ public class CompanyBean extends TSBaseFormBean {
     private Integer companyid;
     private String displayname;
     private String symbol;
-    private String anotherCompanySymbol;    
+    private String anotherCompanySymbol;
+    private String targetCurrency;
+    private static final String SOURCE_CURRENCY_CODE = "USD";
 
     public CompanyBean() {
         logger = Logger.getLogger(CompanyBean.class);
@@ -83,6 +91,14 @@ public class CompanyBean extends TSBaseFormBean {
     public void setAnotherCompanySymbol(String anotherCompanySymbol) {
         this.anotherCompanySymbol = anotherCompanySymbol;
     }       
+
+    public String getTargetCurrency() {
+        return targetCurrency;
+    }
+
+    public void setTargetCurrency(String targetCurrency) {
+        this.targetCurrency = targetCurrency;
+    }
     
     public Collection<TsCompany> getAllCompanies() {
         return (Collection<TsCompany>)CompanyService.findAllCompanies();
@@ -100,6 +116,7 @@ public class CompanyBean extends TSBaseFormBean {
         logger.info("Symbol "+getSymbol());
         logger.info("From Date "+getDefaultFromDate());
         logger.info("To Date "+getDefaultToDate());
+        logger.info("Currency "+getTargetCurrency());
         String symbol = null;
         if(getSymbol() != null && !getSymbol().equals("")){
                symbol = getSymbol();          
@@ -111,9 +128,13 @@ public class CompanyBean extends TSBaseFormBean {
                 }
                 break;
             }
-        }        
-        ChartSeries scrip = new ChartSeries(symbol);
-        scrip.setData(getTrendMap(symbol, TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate()));        
+        }
+        String targetCurrencyCode = SOURCE_CURRENCY_CODE;
+        if(getTargetCurrency() != null && !getTargetCurrency().equals("")){
+            targetCurrencyCode = getTargetCurrency();
+        }
+        ChartSeries scrip = new ChartSeries(symbol+" in "+targetCurrencyCode);
+        scrip.setData(getTrendMap(symbol, TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate(),targetCurrencyCode));        
         trendModel.addSeries(scrip);
         
         return trendModel;
@@ -140,23 +161,42 @@ public class CompanyBean extends TSBaseFormBean {
                 break;
             }
         }        
-        ChartSeries scrip = new ChartSeries(symbol);
-        scrip.setData(getTrendMap(symbol, TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate()));        
+        String targetCurrencyCode = SOURCE_CURRENCY_CODE;
+        if(getTargetCurrency() != null && !getTargetCurrency().equals("")){
+            targetCurrencyCode = getTargetCurrency();
+        }
+        ChartSeries scrip = new ChartSeries(symbol+" in "+ targetCurrencyCode);
+        scrip.setData(getTrendMap(symbol, TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate(), targetCurrencyCode));        
         trendModel.addSeries(scrip);
         
         logger.debug("Another symbol "+getAnotherCompanySymbol());        
         if(getAnotherCompanySymbol() != null && !getAnotherCompanySymbol().equals("")){
-            ChartSeries anotherScrip = new ChartSeries(getAnotherCompanySymbol());
-            anotherScrip.setData(getTrendMap(getAnotherCompanySymbol(), TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate()));        
+            ChartSeries anotherScrip = new ChartSeries(getAnotherCompanySymbol()+" in "+targetCurrencyCode);
+            anotherScrip.setData(getTrendMap(getAnotherCompanySymbol(), TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate(), targetCurrencyCode));        
             trendModel.addSeries(anotherScrip);
         }
         
         logger.debug(trendModel.getSeries());
         return trendModel;
     }
+    
+    public List<TsCurrency> getCurrencyList(String currencyCode){
+        logger.info("currency code is "+currencyCode);
+        return CompanyService.getCurrencyList(currencyCode);
+    }
 
-    private LinkedHashMap<Object, Number> getTrendMap(String symbol, TrendFrequency frequency, Date fromDate, Date toDate) {    
-        return CompanyService.getTrendMap(symbol,frequency,fromDate,toDate);                
+    private LinkedHashMap<Object, Number> getTrendMap(String symbol, TrendFrequency frequency, Date fromDate, Date toDate, String targetCurrencyCode) {    
+      
+        LinkedHashMap<Object, Number> result = CompanyService.getTrendMap(symbol,frequency,fromDate,toDate);                
+        if(!targetCurrencyCode.equals(SOURCE_CURRENCY_CODE)){
+            CurrencyConverter converter = new CurrencyConverterImpl(MoneyCurrency.of(SOURCE_CURRENCY_CODE), MoneyCurrency.of(targetCurrencyCode));
+            LinkedHashMap<Object, Number> returnResult = new LinkedHashMap<>();
+        for(Object key : result.keySet()){
+            returnResult.put(key, (converter.convert(Money.of(SOURCE_CURRENCY_CODE, result.get(key)))).doubleValue());
+        }
+            return returnResult;
+        }
+        return result;
     }
     
     private Date getDefaultFromDate(){        
