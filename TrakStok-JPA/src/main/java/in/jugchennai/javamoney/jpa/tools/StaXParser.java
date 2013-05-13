@@ -2,7 +2,10 @@ package in.jugchennai.javamoney.jpa.tools;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,11 +28,12 @@ public class StaXParser {
     static final String CURRENCY = "currency";
 
     @SuppressWarnings("unchecked")
-    public List<Cube> readConfig(String configFile) {
+    public List<Cube> readConfig(String configFile) throws MalformedURLException, IOException {
         List<Cube> cubes = new ArrayList<>();
         try {
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-            InputStream in = new FileInputStream(configFile);
+            URL url = new URL(configFile);
+            InputStream in =url.openStream();
             XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
             Cube cube = null;
             String tempDate = null;

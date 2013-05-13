@@ -1,7 +1,7 @@
 
 target/
 build/
-
+.forge_settings
 TrakStok-Web/faces-config.NavData
 nb-configuration.xml
 

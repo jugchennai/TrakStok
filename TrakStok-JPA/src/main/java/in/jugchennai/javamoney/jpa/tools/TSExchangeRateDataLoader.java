@@ -15,6 +15,8 @@
  */
 package in.jugchennai.javamoney.jpa.tools;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -42,14 +44,14 @@ public class TSExchangeRateDataLoader {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MalformedURLException, IOException {
         // TODO code application logic here
 
         TSExchangeRateDataLoader dbDataLoader = new TSExchangeRateDataLoader();
 
 
         StaXParser read = new StaXParser();
-        List<Cube> stokList = read.readConfig("eurofxref.xml");
+        List<Cube> stokList = read.readConfig("http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml");
 
         if (!stokList.isEmpty()) {
 
