@@ -33,7 +33,7 @@ public class StaXParser {
         try {
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
             URL url = new URL(configFile);
-            InputStream in =url.openStream();
+            InputStream in = url.openStream();
             XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
             Cube cube = null;
             String tempDate = null;
