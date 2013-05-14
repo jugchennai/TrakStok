@@ -29,6 +29,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.faces.bean.ManagedBean;
 import javax.money.Money;
 import javax.money.MoneyCurrency;
@@ -48,6 +51,8 @@ public class CompanyBean extends TSBaseFormBean {
     private String symbol;
     private String anotherCompanySymbol;
     private String targetCurrency;
+    private double minY;
+    private double maxY;
     private static final String SOURCE_CURRENCY_CODE = "USD";
 
     public CompanyBean() {
@@ -99,6 +104,23 @@ public class CompanyBean extends TSBaseFormBean {
     public void setTargetCurrency(String targetCurrency) {
         this.targetCurrency = targetCurrency;
     }
+
+    public double getMinY() {
+        return minY;
+    }
+
+    public void setMinY(double minY) {
+        this.minY = minY;
+    }
+
+    public double getMaxY() {
+        return maxY;
+    }
+
+    public void setMaxY(double maxY) {
+        this.maxY = maxY;
+    }
+    
     
     public Collection<TsCompany> getAllCompanies() {
         return (Collection<TsCompany>)CompanyService.findAllCompanies();
@@ -134,7 +156,7 @@ public class CompanyBean extends TSBaseFormBean {
             targetCurrencyCode = getTargetCurrency();
         }
         ChartSeries scrip = new ChartSeries(symbol+" in "+targetCurrencyCode);
-        scrip.setData(getTrendMap(symbol, TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate(),targetCurrencyCode));        
+        scrip.setData(getTrendMap(symbol, TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate(),targetCurrencyCode,false));        
         trendModel.addSeries(scrip);
         
         return trendModel;
@@ -166,13 +188,13 @@ public class CompanyBean extends TSBaseFormBean {
             targetCurrencyCode = getTargetCurrency();
         }
         ChartSeries scrip = new ChartSeries(symbol+" in "+ targetCurrencyCode);
-        scrip.setData(getTrendMap(symbol, TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate(), targetCurrencyCode));        
+        scrip.setData(getTrendMap(symbol, TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate(), targetCurrencyCode, false));        
         trendModel.addSeries(scrip);
         
         logger.debug("Another symbol "+getAnotherCompanySymbol());        
         if(getAnotherCompanySymbol() != null && !getAnotherCompanySymbol().equals("")){
             ChartSeries anotherScrip = new ChartSeries(getAnotherCompanySymbol()+" in "+targetCurrencyCode);
-            anotherScrip.setData(getTrendMap(getAnotherCompanySymbol(), TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate(), targetCurrencyCode));        
+            anotherScrip.setData(getTrendMap(getAnotherCompanySymbol(), TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate(), targetCurrencyCode, true));        
             trendModel.addSeries(anotherScrip);
         }
         
@@ -185,7 +207,7 @@ public class CompanyBean extends TSBaseFormBean {
         return CompanyService.getCurrencyList(currencyCode);
     }
 
-    private LinkedHashMap<Object, Number> getTrendMap(String symbol, TrendFrequency frequency, Date fromDate, Date toDate, String targetCurrencyCode) {    
+    private LinkedHashMap<Object, Number> getTrendMap(String symbol, TrendFrequency frequency, Date fromDate, Date toDate, String targetCurrencyCode, boolean secondSymbol) {    
       
         LinkedHashMap<Object, Number> result = CompanyService.getTrendMap(symbol,frequency,fromDate,toDate);                
         if(!targetCurrencyCode.equals(SOURCE_CURRENCY_CODE)){
@@ -194,8 +216,10 @@ public class CompanyBean extends TSBaseFormBean {
         for(Object key : result.keySet()){
             returnResult.put(key, (converter.convert(Money.of(SOURCE_CURRENCY_CODE, result.get(key)))).doubleValue());
         }
+            calculateBoundaries(returnResult,secondSymbol);
             return returnResult;
         }
+        calculateBoundaries(result,secondSymbol);
         return result;
     }
     
@@ -215,4 +239,30 @@ public class CompanyBean extends TSBaseFormBean {
         GregorianCalendar calendar = (GregorianCalendar) GregorianCalendar.getInstance();                
         return calendar.getTime();
     }    
+
+    private void calculateBoundaries(LinkedHashMap<Object, Number> result, boolean secondSymbol) {
+        Set<Number> valueSet = new TreeSet<>();
+        for(Object key : result.keySet()){
+            valueSet.add(result.get(key));
+        }
+        Object[] valueArray = valueSet.toArray();
+        if(secondSymbol){
+            double secondMinY = (double)valueArray[0];
+            double secondMaxY = (double)valueArray[valueArray.length-1];
+            secondMinY-=10;
+            secondMaxY+=10;
+            if(secondMinY < minY){
+                minY = secondMinY;                
+            }
+            if(secondMaxY > maxY){
+                maxY = secondMaxY;                
+            }
+        }else{
+            minY = (double)valueArray[0];
+            maxY = (double)valueArray[valueArray.length-1];
+            minY-=10;
+            maxY+=10;
+        }
+        
+    }
 }
