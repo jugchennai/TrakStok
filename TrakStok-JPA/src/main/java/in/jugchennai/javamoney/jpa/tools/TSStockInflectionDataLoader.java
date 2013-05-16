@@ -305,7 +305,7 @@ public class TSStockInflectionDataLoader {
      * @return random stock value between 1 and 501
      */
     private int getStockValue() {
-        return stockRandom.nextInt(5000) + 1;
+        return stockRandom.nextInt(500) + 1;
     }
 
     /**
@@ -341,7 +341,7 @@ public class TSStockInflectionDataLoader {
      * between 1 and 11
      */
     private int getMaxStockVariation() {
-        return maxStockVariationRandom.nextInt(1000) + 1;
+        return maxStockVariationRandom.nextInt(10) + 1;
     }
 
     /**
