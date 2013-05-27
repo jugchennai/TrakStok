@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="600.0000999999975" styleClass="tsbase" xmlns:fx="http://javafx.com/fxml" fx:controller="in.jugchennai.javamoney.trakstok.javafx.CompanyController">
+  <children>
+    <Label layoutX="24.0" layoutY="562.0" styleClass="tsLabel" text="TrakStok (C) JUGChennai" />
+    <Separator layoutY="548.0" prefWidth="601.0" />
+    <ToolBar layoutY="-1.0" prefHeight="51.0" prefWidth="600.0" style="-fx-base: #333333;">
+      <items>
+        <Button id="companyButton" mnemonicParsing="false" onAction="#onCompanyAction" styleClass="tsButton" text="Company" />
+        <Button id="currencyExchange" mnemonicParsing="false" onAction="#onCurrencyExchangeAction" styleClass="tsButton" text="Currency Exchange" />
+        <Button id="logoutButton" mnemonicParsing="false" onAction="#onLogoutAction" styleClass="tsButton" text="Logout" />
+      </items>
+    </ToolBar>
+    <Label layoutX="32.0" layoutY="65.0" styleClass="tsLabel" text="Company" />
+    <TextField fx:id="companyName" layoutX="118.0" layoutY="62.0" prefWidth="150.0" styleClass="tsTextInput" />
+    <Label layoutX="293.0" layoutY="65.0" styleClass="tsLabel" text="Currency" />
+    <TextField fx:id="currency" layoutX="352.0" layoutY="62.0" prefWidth="92.0" styleClass="tsTextInput" />
+    <Button fx:id="showButton" layoutX="500.0" layoutY="57.0" mnemonicParsing="false" onAction="#onShowCompanyAction" prefWidth="82.0" styleClass="tsButton" text="Show" />
+    <TextField fx:id="compareWith" layoutX="118.0" layoutY="100.0" prefWidth="150.0" styleClass="tsTextInput" visible="false" />
+    <Label fx:id="compareWithLabel" layoutX="31.0" layoutY="103.0" styleClass="tsLabel" text="Compare with" visible="false" />
+    <Button fx:id="compareButton" layoutX="500.0" layoutY="98.0" mnemonicParsing="false" onAction="#onCompareAction" styleClass="tsButton" text="Compare" visible="false" />
+    <Separator layoutY="155.0" prefWidth="600.0" />
+    <TitledPane animated="false" layoutX="11.0" layoutY="169.0" prefHeight="369.0" prefWidth="563.0" style="-fx-base: #333333;" text="Company Profile">
+      <content>
+        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="343.0" prefWidth="571.0">
+          <children>
+            <LineChart fx:id="trendChart" layoutX="1.0" prefHeight="331.0" prefWidth="570.0">
+              <xAxis>
+                <CategoryAxis fx:id="xAxis" label="Date" side="BOTTOM" styleClass="tsLabel" tickLabelFill="WHITE">
+                  <categories>
+                    <FXCollections fx:factory="observableArrayList" />
+                  </categories>
+                </CategoryAxis>
+              </xAxis>
+              <yAxis>
+                <NumberAxis fx:id="yAxis" label="Share Value" side="LEFT" styleClass="tsLabel" tickLabelFill="WHITE" />
+              </yAxis>
+            </LineChart>
+          </children>
+        </AnchorPane>
+      </content>
+    </TitledPane>
+    <CheckBox fx:id="compareWithCheckbox" layoutX="32.0" layoutY="130.0" mnemonicParsing="false" onAction="#onCompareCheckBoxAction" styleClass="tsLabel" text="Compare" />
+  </children>
+  <stylesheets>
+    <URL value="@../css/trakStokFx.css" />
+  </stylesheets>
+</AnchorPane>
