@@ -30,7 +30,6 @@ import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeSet;
 import javax.faces.bean.ManagedBean;
 import javax.money.Money;
@@ -49,6 +48,9 @@ public class CompanyBean extends TSBaseFormBean {
     private Integer companyid;
     private String displayname;
     private String symbol;
+    private Money latestShareValue;
+    private double valueDiff;
+    private String diffImage;
     private String anotherCompanySymbol;
     private String targetCurrency;
     private double minY;
@@ -74,6 +76,9 @@ public class CompanyBean extends TSBaseFormBean {
     }
 
     public String getDisplayname() {
+        if(displayname == null){
+            populateCompanyDetails();
+        }
         return displayname;
     }
 
@@ -87,6 +92,30 @@ public class CompanyBean extends TSBaseFormBean {
 
     public void setSymbol(String symbol) {
         this.symbol = symbol;
+    }
+
+    public Money getLatestShareValue() {
+        return latestShareValue;
+    }
+
+    public void setLatestShareValue(Money latestShareValue) {
+        this.latestShareValue = latestShareValue;
+    }
+
+    public double getValueDiff() {
+        return valueDiff;
+    }
+
+    public void setValueDiff(double valueDiff) {
+        this.valueDiff = valueDiff;
+    }
+
+    public String getDiffImage() {
+        return diffImage;
+    }
+
+    public void setDiffImage(String diffImage) {
+        this.diffImage = diffImage;
     }
     
     public String getAnotherCompanySymbol() {
@@ -139,24 +168,18 @@ public class CompanyBean extends TSBaseFormBean {
         logger.info("From Date "+getDefaultFromDate());
         logger.info("To Date "+getDefaultToDate());
         logger.info("Currency "+getTargetCurrency());
-        String symbol = null;
+        String _symbol;
         if(getSymbol() != null && !getSymbol().equals("")){
-               symbol = getSymbol();          
+               _symbol = getSymbol();          
         }else{
-            for (TsCompany company : (Collection<TsCompany>)CompanyService.findAllCompanies()){
-                symbol = company.getSymbol();
-                if(symbol == null || symbol.equals("")){
-                    continue;
-                }
-                break;
-            }
+            _symbol = getDefaultCompany().getSymbol();
         }
         String targetCurrencyCode = SOURCE_CURRENCY_CODE;
         if(getTargetCurrency() != null && !getTargetCurrency().equals("")){
             targetCurrencyCode = getTargetCurrency();
         }
-        ChartSeries scrip = new ChartSeries(symbol+" in "+targetCurrencyCode);
-        scrip.setData(getTrendMap(symbol, TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate(),targetCurrencyCode,false));        
+        ChartSeries scrip = new ChartSeries(_symbol+" in "+targetCurrencyCode);
+        scrip.setData(getTrendMap(_symbol, TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate(),targetCurrencyCode,false));        
         trendModel.addSeries(scrip);
         
         return trendModel;
@@ -171,24 +194,14 @@ public class CompanyBean extends TSBaseFormBean {
         logger.debug("Symbol "+getSymbol());
         logger.debug("From Date "+getDefaultFromDate());
         logger.debug("To Date "+getDefaultToDate());
-        String symbol = null;
-        if(getSymbol() != null && !getSymbol().equals("")){
-               symbol = getSymbol();          
-        }else{
-            for (TsCompany company : (Collection<TsCompany>)CompanyService.findAllCompanies()){
-                symbol = company.getSymbol();
-                if(symbol == null || symbol.equals("")){
-                    continue;
-                }
-                break;
-            }
-        }        
+        String _symbol;
+        _symbol = getNotNullSymbol();        
         String targetCurrencyCode = SOURCE_CURRENCY_CODE;
         if(getTargetCurrency() != null && !getTargetCurrency().equals("")){
             targetCurrencyCode = getTargetCurrency();
         }
-        ChartSeries scrip = new ChartSeries(symbol+" in "+ targetCurrencyCode);
-        scrip.setData(getTrendMap(symbol, TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate(), targetCurrencyCode, false));        
+        ChartSeries scrip = new ChartSeries(_symbol+" in "+ targetCurrencyCode);
+        scrip.setData(getTrendMap(_symbol, TrendFrequency.DAILY,getDefaultFromDate(),getDefaultToDate(), targetCurrencyCode, false));        
         trendModel.addSeries(scrip);
         
         logger.debug("Another symbol "+getAnotherCompanySymbol());        
@@ -206,9 +219,39 @@ public class CompanyBean extends TSBaseFormBean {
         logger.info("currency code is "+currencyCode);
         return CompanyService.getCurrencyList(currencyCode);
     }
+    
+    private void populateCompanyDetails(){        
+        TsCompany tsCompany;
+        String _symbol = getNotNullSymbol();
+        String targetCurrencyCode = getTargetCurrency();
+        tsCompany = (CompanyService.findBySymbol(_symbol)).iterator().next();
+        logger.info("Populate company details "+tsCompany);
+        setDisplayname(tsCompany.getDisplayname());
+        if(targetCurrencyCode != null && !targetCurrencyCode.equals(SOURCE_CURRENCY_CODE)){
+            CurrencyConverter converter = new CurrencyConverterImpl(MoneyCurrency.of(SOURCE_CURRENCY_CODE), MoneyCurrency.of(targetCurrency));
+            setLatestShareValue(converter.convert((Money)tsCompany.getLatestShareValue()));
+            setValueDiff(converter.convert(Money.of(SOURCE_CURRENCY_CODE,tsCompany.getValueDiff())).doubleValue());            
+        }else{
+            setLatestShareValue((Money) tsCompany.getLatestShareValue());
+            setValueDiff(tsCompany.getValueDiff());
+        }
+        logger.info("Latest share value "+getLatestShareValue());
+        logger.info("Value diff "+getValueDiff());
+        setDiffImage(computeDiffImage(tsCompany.getValueDiff()));        
+    }
+    
+    private String computeDiffImage(double value){
+        String imageName = "equal";        
+        if( value > 0){
+            imageName = "up";
+        }else if(value < 0){
+            imageName = "down";
+        }
+        return imageName;
+    }
 
     private LinkedHashMap<Object, Number> getTrendMap(String symbol, TrendFrequency frequency, Date fromDate, Date toDate, String targetCurrencyCode, boolean secondSymbol) {    
-      
+              
         LinkedHashMap<Object, Number> result = CompanyService.getTrendMap(symbol,frequency,fromDate,toDate);                
         if(!targetCurrencyCode.equals(SOURCE_CURRENCY_CODE)){
             CurrencyConverter converter = new CurrencyConverterImpl(MoneyCurrency.of(SOURCE_CURRENCY_CODE), MoneyCurrency.of(targetCurrencyCode));
@@ -265,4 +308,26 @@ public class CompanyBean extends TSBaseFormBean {
         }
         
     }
+
+    private TsCompany getDefaultCompany() {
+        TsCompany defaultCompany = null;
+        for (TsCompany company : (Collection<TsCompany>)CompanyService.findAllCompanies()){
+            defaultCompany = company;
+            if(company == null){
+                continue;
+            }
+            break;
+        }
+        return defaultCompany;
+    }
+
+    private String getNotNullSymbol() {
+        String _symbol;
+        if(getSymbol() != null && !getSymbol().equals("")){
+               _symbol = getSymbol();          
+        }else{
+            _symbol = getDefaultCompany().getSymbol();
+        }
+        return _symbol;
+    }    
 }
