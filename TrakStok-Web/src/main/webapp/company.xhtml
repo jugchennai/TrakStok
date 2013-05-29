@@ -42,12 +42,18 @@ limitations under the License.
                         <p:autoComplete value="#{companyBean.targetCurrency}" id="targetCurrencr" completeMethod="#{companyBean.getCurrencyList}"  
                                         var="p" itemLabel="#{p.currencyCode}" itemValue="#{p.currencyCode}" forceSelection="true"
                                         />
-                        <p:commandButton id="show" value="Show" update="companyTrend" />
+                        <p:commandButton id="show" value="Show" update="companyTrend,companyDetails" />
                         <p:commandLink id="linkCompareCompany"  action="#{companyBean.compare}" value="Compare Companies" />
                     </h:panelGrid>  
                 </p:panel>
                 
-                <p:panel id="companyProfile" header="Company Profile">  
+                <p:panel id="companyProfile" header="Company Profile">
+                    <h:panelGrid id="companyDetails" columns="4" >
+                        <h:outputText value="Scrip Name : #{companyBean.displayname}," />
+                        <h:outputText value="Latest Price : #{companyBean.latestShareValue}," />
+                        <h:outputText value="Difference : #{companyBean.valueDiff}" />
+                        <p:graphicImage value="../resources/img/#{companyBean.diffImage}.jpg" />
+                    </h:panelGrid>
                     <p:lineChart id="companyTrend" value="#{companyBean.trendModel}" 
                                  legendPosition="ne" title="Company Trend" minY="#{companyBean.minY}" maxY="#{companyBean.maxY}"                                 
                                  xaxisLabel="Date" yaxisLabel="Share Value" />                                 

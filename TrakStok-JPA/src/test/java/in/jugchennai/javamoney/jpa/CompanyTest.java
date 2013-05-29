@@ -59,4 +59,15 @@ public class CompanyTest {
         String currencyCode = "US";
         System.out.println(CompanyService.getCurrencyList(currencyCode));
     }
+    
+    @Test
+    public void testFindBySymbol(){
+        String _symbol = "GOOG";
+        assertTrue(!CompanyService.findBySymbol(_symbol).isEmpty());
+        assertTrue(CompanyService.findBySymbol(_symbol).iterator().next() != null);
+        assertTrue("Stock Inflection collection in company is null or empty",!CompanyService.findBySymbol(_symbol).iterator().next().getTsStockInflectionCollection().isEmpty());
+        //assertTrue(!CompanyService.findBySymbol(_symbol).iterator().next().getTsUsersFavoriteCollection().isEmpty());
+        System.out.println("Latest share value is "+CompanyService.findBySymbol(_symbol).iterator().next().getLatestShareValue());
+        System.out.println("Value diff is "+CompanyService.findBySymbol(_symbol).iterator().next().getValueDiff());
+    }
 }
