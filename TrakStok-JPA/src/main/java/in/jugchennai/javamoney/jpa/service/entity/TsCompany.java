@@ -16,7 +16,13 @@
 package in.jugchennai.javamoney.jpa.service.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import javax.money.MonetaryAmount;
+import javax.money.Money;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -61,7 +67,9 @@ public class TsCompany implements Serializable {
     private Collection<TsStockInflection> tsStockInflectionCollection;
     @OneToMany(mappedBy = "companyid")
     private Collection<TsUsersFavorite> tsUsersFavoriteCollection;
-
+    
+    private static final String DEFAULT_CURRENCY_CODE = "USD";
+    
     public TsCompany() {
     }
 
@@ -116,7 +124,19 @@ public class TsCompany implements Serializable {
     public void setTsUsersFavoriteCollection(Collection<TsUsersFavorite> tsUsersFavoriteCollection) {
         this.tsUsersFavoriteCollection = tsUsersFavoriteCollection;
     }
-
+    
+    public MonetaryAmount getLatestShareValue(){
+        MonetaryAmount amount = null;
+        List<TsStockInflection> list = sortInflectionDesc();
+        amount = Money.of(DEFAULT_CURRENCY_CODE,list.get(0).getAmount());
+        return amount;       
+    }
+    
+    public double getValueDiff(){
+        List<TsStockInflection> list = sortInflectionDesc();
+        return list.get(0).getAmount() - list.get(1).getAmount();
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -140,5 +160,27 @@ public class TsCompany implements Serializable {
     @Override
     public String toString() {
         return "in.jugchennai.javamoney.jpa.service.entity.TsCompany[ companyid=" + companyid + " ]";
+    }
+
+    private List<TsStockInflection> sortInflectionDesc() {
+        List<TsStockInflection> list = new ArrayList<>();
+        if(!tsStockInflectionCollection.isEmpty() && tsStockInflectionCollection instanceof List){
+            list.addAll(tsStockInflectionCollection);
+            Collections.sort(list,new ShareValueComparator());            
+        }
+        System.out.println(list);
+        return list;
+    }
+
+    private class ShareValueComparator implements Comparator<TsStockInflection>{
+
+        public ShareValueComparator() {
+        }
+
+        @Override
+        public int compare(TsStockInflection o1, TsStockInflection o2) {
+            //Decending order
+            return (o2.getDatetime().compareTo(o1.getDatetime()));            
+        }
     }
 }
