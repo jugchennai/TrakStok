@@ -71,7 +71,13 @@
 	<artifactId>cdi-api</artifactId>
 	<version>1.0</version>
 </dependency>
-  </dependencies>
+          <dependency>
+               <groupId>in.jugchennai.javamoney</groupId>
+               <artifactId>TrakStok-JavaMoney</artifactId>
+               <version>1.0-SNAPSHOT</version>
+               <type>jar</type>
+          </dependency>
+     </dependencies>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
