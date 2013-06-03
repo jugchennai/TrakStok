@@ -9,21 +9,21 @@ import org.jrebirth.core.resource.font.FontParams;
 import org.jrebirth.core.resource.font.RealFont;
 
 /**
- * The class <strong>SampleFonts</strong>.
+ * The class <strong>TrakStokFonts</strong>.
  * 
  * @author
  */
-public enum SampleFonts implements FontItem {
+public enum TrakStokFonts implements FontItem {
 
     /** The splash font. */
-    SPLASH(new RealFont(SampleFontsLoader.DINk, 24));
+    SPLASH(new RealFont(TrakStokFontsLoader.DINk, 24));
 
     /**
      * Default Constructor.
      * 
      * @param fontParams the font size
      */
-    SampleFonts(final FontParams fontParams) {
+    TrakStokFonts(final FontParams fontParams) {
         builder().storeParams(this, fontParams);
     }
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<jnlp spec="1.0+" xmlns:jfx="http://javafx.com" href="SampleApplication.jnlp">
+<jnlp spec="1.0+" xmlns:jfx="http://javafx.com" href="TrakStokApplication.jnlp">
 <!-- codebase="http://www.jrebirth.org/sample" -->
 	<information>
 		<title>${project.name}</title>
 		<vendor>Sébastien Bordes</vendor>
 		<homepage href="${project.url}"/>
 		<description>${project.description}</description>
-		<description kind="short">Sample Application</description>
+		<description kind="short">TrakStok Application</description>
 		<icon href="http://www.jrebirth.org/uploads/images/JRebirth_32x32.png"/>
 		<offline-allowed/>
 	</information>

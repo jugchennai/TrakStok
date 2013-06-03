@@ -9,14 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The class <strong>SampleView</strong>.
+ * The class <strong>TrakStokView</strong>.
  * 
  * @author
  */
-public class SampleView extends AbstractView<SampleModel, BorderPane, SampleController> {
+public class TrakStokView extends AbstractView<TrakStokModel, BorderPane, TrakStokController> {
 
     /** The class logger. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(SampleView.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TrakStokView.class);
 
     /**
      * Default Constructor.
@@ -25,7 +25,7 @@ public class SampleView extends AbstractView<SampleModel, BorderPane, SampleCont
      * 
      * @throws CoreException if build fails
      */
-    public SampleView(final SampleModel model) throws CoreException {
+    public TrakStokView(final TrakStokModel model) throws CoreException {
         super(model);
     }
 

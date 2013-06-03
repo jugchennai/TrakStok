@@ -6,14 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The class <strong>SampleController</strong>.
+ * The class <strong>TrakStokController</strong>.
  * 
  * @author
  */
-public class SampleController extends AbstractController<SampleModel, SampleView> {
+public class TrakStokController extends AbstractController<TrakStokModel, TrakStokView> {
 
     /** The class logger. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(SampleController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TrakStokController.class);
 
     /**
      * Default Constructor.
@@ -22,7 +22,7 @@ public class SampleController extends AbstractController<SampleModel, SampleView
      * 
      * @throws CoreException if an error occurred while creating event handlers
      */
-    public SampleController(final SampleView view) throws CoreException {
+    public TrakStokController(final TrakStokView view) throws CoreException {
         super(view);
     }
 
