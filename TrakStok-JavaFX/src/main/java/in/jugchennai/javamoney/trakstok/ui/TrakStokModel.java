@@ -6,14 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The class <strong>SampleModel</strong>.
+ * The class <strong>TrakStokModel</strong>.
  * 
  * @author
  */
-public class SampleModel extends AbstractModel<SampleModel, SampleView> {
+public class TrakStokModel extends AbstractModel<TrakStokModel, TrakStokView> {
 
     /** The class logger. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(SampleModel.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TrakStokModel.class);
 
     /**
      * {@inheritDoc}

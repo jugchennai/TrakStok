@@ -7,14 +7,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The class <strong>SampleUICommand</strong> used to process long action (without monitoring)into the JRebirth Thread Pool.
+ * The class <strong>TrakStokUICommand</strong> use to update the user interface.
  * 
  * @author
  */
-public final class SamplePoolCommand extends DefaultUICommand {
+public final class TrakStokUICommand extends DefaultUICommand {
 
     /** The class logger. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(SamplePoolCommand.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TrakStokUICommand.class);
 
     /**
      * {@inheritDoc}

@@ -1,20 +1,20 @@
 package in.jugchennai.javamoney.trakstok.command;
 
-import org.jrebirth.core.command.DefaultUICommand;
+import org.jrebirth.core.command.DefaultCommand;
 import org.jrebirth.core.exception.CoreException;
 import org.jrebirth.core.wave.Wave;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The class <strong>SampleUICommand</strong> use to update the user interface.
+ * The class <strong>TrakStokCommand</strong> used to process short action into the JRebirth Internal Thread.
  * 
  * @author
  */
-public final class SampleUICommand extends DefaultUICommand {
+public final class TrakStokCommand extends DefaultCommand {
 
     /** The class logger. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(SampleUICommand.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TrakStokCommand.class);
 
     /**
      * {@inheritDoc}

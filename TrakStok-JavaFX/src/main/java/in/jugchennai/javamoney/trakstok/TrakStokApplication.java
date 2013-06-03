@@ -13,14 +13,14 @@ import org.jrebirth.core.application.AbstractApplication;
 import org.jrebirth.core.resource.font.FontItem;
 import org.jrebirth.core.ui.Model;
 import org.jrebirth.core.wave.Wave;
-import in.jugchennai.javamoney.trakstok.ui.SampleModel;
+import in.jugchennai.javamoney.trakstok.ui.TrakStokModel;
 
 /**
- * The class <strong>SampleApplication</strong>.
+ * The class <strong>TrakStokApplication</strong>.
  * 
  * @author
  */
-public final class SampleApplication extends AbstractApplication<StackPane> {
+public final class TrakStokApplication extends AbstractApplication<StackPane> {
 
     /**
      * Application launcher.
@@ -28,7 +28,7 @@ public final class SampleApplication extends AbstractApplication<StackPane> {
      * @param args the command line arguments
      */
     public static void main(final String... args) {
-        Application.launch(SampleApplication.class, args);
+        Application.launch(TrakStokApplication.class, args);
     }
 
     /**
@@ -36,7 +36,7 @@ public final class SampleApplication extends AbstractApplication<StackPane> {
      */
     @Override
     public Class<? extends Model> getFirstModelClass() {
-        return SampleModel.class;
+        return TrakStokModel.class;
     }
 
     /**
@@ -44,7 +44,7 @@ public final class SampleApplication extends AbstractApplication<StackPane> {
      */
     @Override
     protected String getApplicationTitle() {
-        return "Sample Application - Powered by JRebirth";
+        return "TrakStok";
     }
 
     /**
@@ -60,7 +60,8 @@ public final class SampleApplication extends AbstractApplication<StackPane> {
      */
     @Override
     protected void customizeScene(final Scene scene) {
-        scene.getStylesheets().add("style/sample.css");
+       //System.out.println ("*************SORUCE URL "+this.getClass().getResource("style/sample.css").toString());
+        scene.getStylesheets().add(this.getClass().getResource("css/trakStokFx.css").toString());
     }
 
     /**
@@ -69,7 +70,7 @@ public final class SampleApplication extends AbstractApplication<StackPane> {
     @Override
     public List<FontItem> getFontToPreload() {
         return Arrays.asList(new FontItem[] {
-                SampleFonts.SPLASH
+                TrakStokFonts.SPLASH
         });
     }
 

@@ -8,11 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The class <strong>SampleService</strong>.
+ * The class <strong>TrakStokService</strong>.
  * 
  * @author
  */
-public final class SampleService extends ServiceBase {
+public final class TrakStokService extends ServiceBase {
 
     /** Perform something. */
     public static final WaveTypeBase DO_SOMETHING = WaveTypeBase.build("SOMETHING");
@@ -21,7 +21,7 @@ public final class SampleService extends ServiceBase {
     public static final WaveTypeBase RE_SOMETHING_DONE = WaveTypeBase.build("SOMETHING_DONE");
 
     /** The class logger. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(SampleService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TrakStokService.class);
 
     /**
      * {@inheritDoc}
