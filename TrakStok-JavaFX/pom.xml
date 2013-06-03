@@ -6,6 +6,12 @@
 	<artifactId>TrakStok-JavaFX</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
+	
+	<parent>
+    <artifactId>TrakStok</artifactId>
+    <groupId>in.jugchennai.javamoney</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
 
 	<name>TrakStok-JavaFX</name>
 	<url>http://www.sample.org</url>
@@ -18,7 +24,7 @@
 		<deployPath>${project.artifactId}/${project.version}</deployPath>
 
 		<jnlpFilename>TrakStok-JavaFX.jnlp</jnlpFilename>
-		<appClass>in.jugchennai.javamoney.TrakStok-JavaFX.SampleApplication</appClass>
+		<appClass>in.jugchennai.javamoney.trakstok.TrakStokApplication</appClass>
 
 		<appletWidth>1024</appletWidth>
 		<appletHeight>768</appletHeight>
