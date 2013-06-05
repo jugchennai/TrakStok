@@ -17,6 +17,7 @@ package in.jugchennai.javamoney.trakstok.rest;
 
 import in.jugchennai.javamoney.jpa.service.UserService;
 import in.jugchennai.javamoney.jpa.service.entity.TsUsers;
+import in.jugchennai.javamoney.jpa.service.entity.TsUsersFavorite;
 import java.util.Collection;
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
@@ -59,7 +60,6 @@ public class UserResource {
 //      return Response.status(Response.Status.BAD_REQUEST).entity(ERROR_MSG_ID_NOT_EQUAL).build(); // when the specified data is not available
     }
     
-    // Need to throw some exceptions, when anyting goes wrong
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
     public Collection<TsUsers> list(@QueryParam("username") String username, @QueryParam("password") String password) {
@@ -107,6 +107,17 @@ public class UserResource {
             return Response.status(200).build();
         }
         return Response.status(Response.Status.PRECONDITION_FAILED).entity("Username is empty").build();
+    }
+    
+    @POST
+    @Path("/favorite")
+    @Consumes (MediaType.APPLICATION_JSON)
+    public Response addUserFavorite(TsUsersFavorite userFavorite) {
+        boolean status = UserService.addUserFavorite(userFavorite);
+        if (status) {
+            return Response.status(200).build();
+        }
+        return Response.status(Response.Status.PRECONDITION_FAILED).entity("Username or Symbol is empty").build();
     }
         
     @PUT

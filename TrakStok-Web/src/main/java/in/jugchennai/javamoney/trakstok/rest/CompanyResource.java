@@ -16,8 +16,13 @@
 package in.jugchennai.javamoney.trakstok.rest;
 
 import in.jugchennai.javamoney.jpa.service.CompanyService;
+import in.jugchennai.javamoney.jpa.service.entity.TrendFrequency;
 import in.jugchennai.javamoney.jpa.service.entity.TsCompany;
+import in.jugchennai.javamoney.jpa.service.entity.TsCurrency;
 import java.util.Collection;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
 import javax.enterprise.context.RequestScoped;
@@ -62,6 +67,33 @@ public class CompanyResource {
     public Collection<TsCompany> list(@PathParam("id") int id) {
         return CompanyService.findAllCompanies();
     }
+    
+    @GET
+    @Path("/trendMap")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+    public LinkedHashMap<Object, Number> trendMap(@QueryParam("symbol") String symbol, @QueryParam("frequency") String frequency, @QueryParam("fromDate") Date fromDate, @QueryParam("toDate") Date toDate) {
+        LinkedHashMap<Object, Number> trendMap = null;
+        if (symbol != null && frequency != null && fromDate != null && toDate != null) {
+            TrendFrequency trendFrequency = TrendFrequency.valueOf(frequency);
+            trendMap = CompanyService.getTrendMap(symbol, trendFrequency, fromDate, toDate);
+        }
+        return trendMap;
+    }
+    
+    @GET
+    @Path("/currencyList")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+    public Collection<TsCurrency> currencyList(@QueryParam("currencyCode") String currencyCode) {
+        List<TsCurrency> currencyList = CompanyService.getCurrencyList(currencyCode);
+        return currencyList;
+    }
+    
+//    @GET
+//    @Path("/dailyTrend")
+//    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+//    public Collection<TsCompany> dailyTrend(@QueryParam("symbol") String symbol, @QueryParam("fromDate") Date fromDate, @QueryParam("toDate") Date toDate) {
+//        return CompanyService.findAllCompanies();
+//    }
     
     @POST
     @Consumes (MediaType.APPLICATION_JSON)
