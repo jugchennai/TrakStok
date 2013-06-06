@@ -102,23 +102,23 @@ public class TSExchangeRateDataLoader {
 
             int j = 0;
             for (Cube cube : stokList) {
-                
+
                 pstmt.setString(1, cube.getCurrency());
-               
+
                 pstmt.setDate(2, new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd")
                         .parse(cube.getDate()).getTime()));
-             
+
                 pstmt.setDouble(3, Double.parseDouble(cube.getRate()));
-               
+
                 pstmt.setString(4, SOURCE_CURRENCY_COCE);
-                
+
                 pstmt.addBatch();
-               
+
                 if ((j + 1) % 100 == 0) {
                     pstmt.executeBatch();// will execute batch update process for every 100 element.
                 }
                 j++;
-             //   System.out.println(j);
+                //   System.out.println(j);
             }
             pstmt.executeBatch();
             conn.commit();
