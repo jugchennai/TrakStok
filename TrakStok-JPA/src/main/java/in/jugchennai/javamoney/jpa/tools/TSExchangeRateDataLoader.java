@@ -20,9 +20,12 @@ import java.net.MalformedURLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,9 +41,9 @@ public class TSExchangeRateDataLoader {
     public static final String SOURCE_CURRENCY_COCE = "EUR";
     private Connection conn = null;
     private PreparedStatement pstmt = null;
-    private String dbUser;
-    private String dbPassword;
-
+   /* private String dbUser;
+    private String dbPassword;*/
+    
     /**
      * @param args the command line arguments
      */
@@ -56,16 +59,15 @@ public class TSExchangeRateDataLoader {
         if (!stokList.isEmpty()) {
 
             dbDataLoader.loadDriver();
+            
             try {
                 dbDataLoader.insertStockRate(stokList);
+                System.out.println("-Done! TS_EXCHANGE_RATE is upto date-");
             } catch (ParseException ex) {
                 Logger.getLogger(TSExchangeRateDataLoader.class.getName())
                         .log(Level.SEVERE, null, ex);
             }
-
-            System.out.println("-Done! XML inported to TS_EXCHANGE_RATE-");
-
-
+   
         } else {
 
             System.out.println("No data in given xml");
@@ -95,33 +97,52 @@ public class TSExchangeRateDataLoader {
              * conn = DriverManager.getConnection(DATABASE, dbUser, dbPassword);
              * } else {}*/
             conn = DriverManager.getConnection(DATABASE);
+            ResultSet rs = conn.createStatement().executeQuery("select distinct (exchange_date) from APP.TS_EXCHANGE_RATE order by exchange_date desc FETCH FIRST 1 ROWS ONLY");
+            Date pastFinalStockDate = null, currentDate;
+            if (rs.next()) {
+                pastFinalStockDate = rs.getDate(1);
+            }
             conn.setAutoCommit(false);
             pstmt = conn.prepareStatement("INSERT INTO TS_EXCHANGE_RATE"
                     + " (CURRENCY_CODE, EXCHANGE_DATE, RATE,"
                     + " SOURCE_CURRENCY_CODE) values(?,?,?,?)");
-
             int j = 0;
-            for (Cube cube : stokList) {
-                
-                pstmt.setString(1, cube.getCurrency());
-               
-                pstmt.setDate(2, new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd")
-                        .parse(cube.getDate()).getTime()));
-             
-                pstmt.setDouble(3, Double.parseDouble(cube.getRate()));
-               
-                pstmt.setString(4, SOURCE_CURRENCY_COCE);
-                
-                pstmt.addBatch();
-               
-                if ((j + 1) % 100 == 0) {
-                    pstmt.executeBatch();// will execute batch update process for every 100 element.
+            if(pastFinalStockDate != null){// check if DB is empty or not. if it is null then the DB is empty.
+                for (Cube cube : stokList) {// imports only data based on comaparation with DB data.
+                    currentDate = new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse(cube.getDate()).getTime());
+                    if (currentDate.compareTo(pastFinalStockDate) > 0) {
+                      
+                        pstmt.setString(1, cube.getCurrency());
+                        pstmt.setDate(2, new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd")
+                                .parse(cube.getDate()).getTime()));
+                        pstmt.setDouble(3, Double.parseDouble(cube.getRate()));
+                        pstmt.setString(4, SOURCE_CURRENCY_COCE);
+                        pstmt.addBatch();
+                        if ((j + 1) % 100 == 0) {
+                            pstmt.executeBatch();// will execute batch update process for every 100 element.
+                        }
+                        j++;
+                    }else{
+                        break;
+                    }
+            }
+            }else{
+                for (Cube cube : stokList) {// this will import the full xml data since DB is empty.
+                    pstmt.setString(1, cube.getCurrency());
+                    pstmt.setDate(2, new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd")
+                            .parse(cube.getDate()).getTime()));
+                    pstmt.setDouble(3, Double.parseDouble(cube.getRate()));
+                    pstmt.setString(4, SOURCE_CURRENCY_COCE);
+                    pstmt.addBatch();
+                    if ((j + 1) % 100 == 0) {
+                        pstmt.executeBatch();// will execute batch update process for every 100 element.
+                    }
+                    j++;
                 }
-                j++;
-             //   System.out.println(j);
             }
             pstmt.executeBatch();
             conn.commit();
+     
         } catch (SQLException ex) {
             Logger.getLogger(TSExchangeRateDataLoader.class.getName())
                     .log(Level.SEVERE, null, ex);
