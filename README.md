@@ -17,6 +17,20 @@ TrakStok uses following tools :
 * Java DB (comes with Glassfish) DB Script is available at _TrakStok/src/main/scripts/database.sql_
 * Latest Chrome Browser
 
+Setup
+============
+* Create a DB Connection in Java DB for `jdbc:derby://localhost:1527/trakstok`
+* Go to `database.sql` file and execute in the above connection
+* Clone the [JavaMoney](https://github.com/JavaMoney/javamoney) project and build it locally
+* Clone the TS project and build.
+* In JPA module execute `TSExchangeRateDataLoader` and `TSStockInflectionDataLoader` DataLoader in same order
+* Run the Web module
+
+TODO list
+============
+* JavaFX is currently under construction.
+* Mobility yet to start.
+
 JSR 354: Money and Currency API
 ===============================
  This JSR focuses on defining interfaces and classes to be used for currencies and monetary amounts. Generally the following areas are defined:
