@@ -25,7 +25,7 @@
   
     <build>
         <plugins>
-            <plugin>
+            <plugin> <!-- mvn exec:java  -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
@@ -36,6 +36,21 @@
                     <debug>false</debug>
                 </configuration>
             </plugin>
+            <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <executions>
+          <execution>
+                   <goals>
+              <goal>java</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass>in.jugchennai.javamoney.jpa.tools.TSExchangeRateDataLoader</mainClass>
+        </configuration>
+      </plugin>
         </plugins>
     </build>
      <dependencies>
