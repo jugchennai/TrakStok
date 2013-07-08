@@ -18,12 +18,12 @@ displayName VARCHAR(20) not null,
 symbol VARCHAR(15) not null unique
 );
 
-INSERT INTO APP.TS_COMPANY (DISPLAYNAME, SYMBOL) 
-	VALUES ('IBM', 'IBM');
-INSERT INTO APP.TS_COMPANY (DISPLAYNAME, SYMBOL) 
-	VALUES ('ORACLE', 'ORC');
-INSERT INTO APP.TS_COMPANY (DISPLAYNAME, SYMBOL) 
-	VALUES ('MICROSOFT', 'MS');
+/* Inserts some dummy Companies */
+INSERT INTO TS_COMPANY(displayName, symbol) VALUES ('Orange','ORAE');
+INSERT INTO TS_COMPANY(displayName, symbol) VALUES ('Moon','MOON');
+INSERT INTO TS_COMPANY(displayName, symbol) VALUES ('Macrosoft','MAST');
+INSERT INTO TS_COMPANY(displayName, symbol) VALUES ('Zipro','ZIPR');
+INSERT INTO TS_COMPANY(displayName, symbol) VALUES ('SBM','SBM');
 
 /* User's Favorite Companies Table */
 CREATE TABLE TS_USERS_FAVORITE (
