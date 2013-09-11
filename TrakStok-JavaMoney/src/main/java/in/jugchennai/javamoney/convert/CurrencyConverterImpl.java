@@ -15,10 +15,13 @@
  */
 package in.jugchennai.javamoney.convert;
 
+import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.money.Money;
 import javax.money.MoneyCurrency;
 import javax.money.convert.ConversionProvider;
-import net.java.javamoney.ri.convert.provider.EZBConversionProvider;
+import net.java.javamoney.ri.convert.provider.EZBCurrentConversionProvider;
 
 /**
  *Implementation of the Currency converter 
@@ -31,7 +34,11 @@ public class CurrencyConverterImpl extends AbstractCurrencyConverter{
 
     public CurrencyConverterImpl(MoneyCurrency sourceCurrency, MoneyCurrency targetCurrency) {
         super(sourceCurrency, targetCurrency);
-        conversionProvider = new EZBConversionProvider();
+        try {
+            conversionProvider = new EZBCurrentConversionProvider();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(CurrencyConverterImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
         
     @Override
