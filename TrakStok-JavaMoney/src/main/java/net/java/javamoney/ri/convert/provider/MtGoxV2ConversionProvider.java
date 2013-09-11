@@ -104,16 +104,16 @@ public class MtGoxV2ConversionProvider implements ConversionProvider {
 
     @Override
     public boolean isAvailable(CurrencyUnit base, CurrencyUnit term) {
-        return getExchangeRate(base, term, null) != null;
+        return getExchangeRate(base, term) != null;
     }
 
     @Override
-    public boolean isAvailable(CurrencyUnit base, CurrencyUnit term, Long timestamp) {
+    public boolean isAvailable(CurrencyUnit base, CurrencyUnit term, long timestamp) {
         return getExchangeRate(base, term, timestamp) != null;
     }
 
     @Override
-    public ExchangeRate getExchangeRate(CurrencyUnit base, CurrencyUnit term, Long timestamp) {
+    public ExchangeRate getExchangeRate(CurrencyUnit base, CurrencyUnit term, long timestamp) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
     }
@@ -130,7 +130,7 @@ public class MtGoxV2ConversionProvider implements ConversionProvider {
     @Override
     public ExchangeRate getReversed(ExchangeRate rate) {
         return getExchangeRate(rate.getTerm(), rate.getBase(),
-                rate.getValidFrom());
+                rate.getValidFrom().getTimeInMillis());
     }
 
     @Override
