@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 JUGChennai.
+ * Copyright 2013 JRebirth.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,42 +19,19 @@ package in.jugchennai.javamoney.trakstok.beans;
  *
  * @author gshenoy
  */
-public class User {
-
+public class Company {
+    
     private String name;
-    private String password;
-    private String displayName;
-    private String lastLogin;
-
+    
+    public Company(String name) {
+        this.name = name;
+    }
+    
     public String getName() {
         return this.name;
     }
-
-    public String getPassword() {
-        return this.password;
-    }
-
+    
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getDisplayName() {
-        return this.displayName;
-    }
-
-    public String getLastLogin() {
-        return this.lastLogin;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-    public void setLastLogin(String lastLogin) {
-        this.lastLogin = lastLogin;
     }
 }
