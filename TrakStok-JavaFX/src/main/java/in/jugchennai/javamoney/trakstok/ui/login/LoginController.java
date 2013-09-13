@@ -15,16 +15,23 @@
  */
 package in.jugchennai.javamoney.trakstok.ui.login;
 
+import in.jugchennai.javamoney.trakstok.beans.User;
 import in.jugchennai.javamoney.trakstok.service.TrakStokService;
+import in.jugchennai.javamoney.trakstok.ui.TSWaves;
 import javafx.event.ActionEvent;
 import org.jrebirth.core.exception.CoreException;
 import org.jrebirth.core.ui.DefaultController;
+import org.jrebirth.core.wave.WaveData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author gshenoy
  */
 public class LoginController extends DefaultController<LoginModel, LoginView> {
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
     /**
      * Default Constructor.
@@ -36,10 +43,16 @@ public class LoginController extends DefaultController<LoginModel, LoginView> {
     public LoginController(final LoginView view) throws CoreException {
         super(view);
     }
-
+    
     public void onActionLogin(final ActionEvent actionEvent) {
-
-        getModel().returnData(TrakStokService.class, TrakStokService.DO_LOGIN);
-
+        
+        LOGGER.info("onActionLogin()");
+        
+        User user = new User();
+        user.setName(getView().getLogin());
+        user.setPassword(getView().getPassword());
+        
+        getModel().returnData(TrakStokService.class, TrakStokService.DO_LOGIN, WaveData.build(TSWaves.USER, user));
+        
     }
 }
