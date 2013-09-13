@@ -42,6 +42,11 @@ public class LoginView extends DefaultView<LoginModel, AnchorPane, LoginControll
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginView.class);
     @OnAction(name = "Login")
     private Button loginButton;
+    private Label errorMessage;
+    private Label loginLabel;
+    private Label passwordLabel;
+    private TextField loginText;
+    private PasswordField pwdText;
 
     /**
      * Default Constructor.
@@ -69,11 +74,12 @@ public class LoginView extends DefaultView<LoginModel, AnchorPane, LoginControll
 
     private void addLoginPanel() {
 
-        Label loginLabel = LabelBuilder.create().text("Login:").textFill(Paint.valueOf("white")).layoutX(24.0).layoutY(49.0).style("tsLabel").build();
-        Label passwordLabel = LabelBuilder.create().text("Password:").textFill(Paint.valueOf("white")).layoutX(24.0).layoutY(89.0).style("tsLabel").build();
+        loginLabel = LabelBuilder.create().text("Login:").textFill(Paint.valueOf("white")).layoutX(24.0).layoutY(49.0).style("tsLabel").build();
+        passwordLabel = LabelBuilder.create().text("Password:").textFill(Paint.valueOf("white")).layoutX(24.0).layoutY(89.0).style("tsLabel").build();
+        errorMessage = LabelBuilder.create().text("Invalid username/password").textFill(Paint.valueOf("red")).layoutX(38.0).layoutY(170.0).style("tsLabel").visible(false).build();
 
-        TextField loginText = TextFieldBuilder.create().layoutX(114.0).layoutY(48.0).style("tsTextInput").prefWidth(200.0).build();
-        PasswordField pwdText = PasswordFieldBuilder.create().layoutX(114.0).layoutY(89.0).style("tsTextInput").prefWidth(200.0).build();
+        loginText = TextFieldBuilder.create().layoutX(114.0).layoutY(48.0).style("tsTextInput").prefWidth(200.0).build();
+        pwdText = PasswordFieldBuilder.create().layoutX(114.0).layoutY(89.0).style("tsTextInput").prefWidth(200.0).build();
 
         this.loginButton = ButtonBuilder.create().layoutX(136.0).layoutY(129.0).styleClass("tsButton").text("Login").build();
 
@@ -92,4 +98,17 @@ public class LoginView extends DefaultView<LoginModel, AnchorPane, LoginControll
         getRootNode().getChildren().add(vBox);
 
     }
+
+    public void invalidLogin() {
+        errorMessage.setVisible(true);
+    }
+    
+    public String getLogin() {
+        return loginText.getText();
+    }
+    
+    public String getPassword() {
+        return pwdText.getText();
+    }
+    
 }
