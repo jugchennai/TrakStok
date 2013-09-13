@@ -45,4 +45,5 @@ root {
     
     -fx-font-family: "Tahoma";
     -fx-font-size: 14px;
+    -fx-text-fill: linear-gradient(white, #d0d0d0);
 }

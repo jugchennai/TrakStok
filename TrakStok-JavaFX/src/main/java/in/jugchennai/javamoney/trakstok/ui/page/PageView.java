@@ -58,9 +58,7 @@ public class PageView extends DefaultView<PageModel, BorderPane, PageController>
         footer.getChildren().add(footerLabel);
 
         getRootNode().setTop(headerLabel);
-
         getRootNode().setCenter(getModel().getInnerModel(PageInnerModels.LOGIN).getRootNode());
-
         getRootNode().setBottom(footerLabel);
 
     }

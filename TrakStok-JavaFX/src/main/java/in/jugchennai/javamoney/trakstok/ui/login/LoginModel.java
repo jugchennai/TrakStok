@@ -35,15 +35,21 @@ public class LoginModel extends DefaultModel<LoginModel, LoginView> {
 
     @Override
     protected void initModel() {
-
         listen(TrakStokService.RE_ON_LOGIN);
-
     }
 
     public void doOnLogin(final User user, final Wave wave) {
 
         LOGGER.info("doOnLogin()");
-        sendWave(TSWaves.SHOW_PAGE, WaveData.build(TSWaves.PAGE, Page.MEMBER));
+
+        if (user != null) {
+            sendWave(TSWaves.SHOW_PAGE, WaveData.build(TSWaves.PAGE, Page.MEMBER));
+        } else {
+
+            LOGGER.info("doOnLogin() - Login failed");
+            getView().invalidLogin();
+
+        }
 
     }
 

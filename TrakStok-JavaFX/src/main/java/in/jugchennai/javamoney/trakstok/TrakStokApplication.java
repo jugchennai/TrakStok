@@ -77,7 +77,8 @@ public final class TrakStokApplication extends AbstractApplication<AnchorPane> {
      */
     @Override
     protected void customizeScene(final Scene scene) {        
-        addCSS(scene, TSStyles.MAIN);
+        addCSS(scene, TSStyles.MAIN);        
+        //AquaFx.style();
     }
 
     /**
