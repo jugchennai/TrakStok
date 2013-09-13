@@ -15,8 +15,13 @@
  */
 package in.jugchennai.javamoney.trakstok.ui;
 
+import in.jugchennai.javamoney.trakstok.beans.Company;
+import in.jugchennai.javamoney.trakstok.beans.Currency;
 import in.jugchennai.javamoney.trakstok.beans.Page;
 import in.jugchennai.javamoney.trakstok.beans.User;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import org.jrebirth.core.wave.WaveItem;
 import org.jrebirth.core.wave.WaveType;
 import org.jrebirth.core.wave.WaveTypeBase;
@@ -34,5 +39,13 @@ public interface TSWaves {
     };
     WaveType SHOW_PAGE = WaveTypeBase.build("SHOW_PAGE", PAGE);
     WaveItem<User> USER = new WaveItem<User>() {
+    };
+    WaveItem<List<Company>> COMPANIES = new WaveItem<List<Company>>() {
+    };
+    WaveItem<List<Currency>> CURRENCIES = new WaveItem<List<Currency>>() {
+    };
+    WaveItem<Map<Object, Number>> TREND = new WaveItem<Map<Object, Number>>() {
+    };
+    WaveItem<LinkedHashMap<Object, Number>> COMPARE_TREND = new WaveItem<LinkedHashMap<Object, Number>>() {
     };
 }
