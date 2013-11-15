@@ -86,6 +86,14 @@ public class CompanyService {
         }        
     }
     
+    public static List<TsCurrency> getCurrencyList() {
+        List<TsCurrency> currencyList = new ArrayList<TsCurrency>();
+        Query qry = eManager.createNamedQuery("TsCurrency.findAll");
+        currencyList = qry.getResultList();
+        log.info("currency list is "+currencyList.toString());
+        return currencyList;
+    }
+    
     public static List<TsCurrency> getCurrencyList(String currencyCode) {
         List<TsCurrency> currencyList = new ArrayList<TsCurrency>();
         Query qry = eManager.createNamedQuery("TsCurrency.searchByCurrencyCode");

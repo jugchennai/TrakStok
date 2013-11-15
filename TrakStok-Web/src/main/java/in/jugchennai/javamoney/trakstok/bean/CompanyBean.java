@@ -23,6 +23,7 @@ import in.jugchennai.javamoney.jpa.service.entity.TsCompany;
 import in.jugchennai.javamoney.jpa.service.entity.TsCurrency;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -56,6 +57,7 @@ public class CompanyBean extends TSBaseFormBean {
     private double minY;
     private double maxY;
     private static final String SOURCE_CURRENCY_CODE = "USD";
+    private List<TsCurrency> currencyList = new ArrayList<TsCurrency>();
 
     public CompanyBean() {
         logger = Logger.getLogger(CompanyBean.class);
@@ -214,12 +216,26 @@ public class CompanyBean extends TSBaseFormBean {
         logger.debug(trendModel.getSeries());
         return trendModel;
     }
+
+    public List<TsCurrency> getCurrencyList() {
+        currencyList = CompanyService.getCurrencyList();
+        return currencyList;
+    }
+
+    public void setCurrencyList(List<TsCurrency> currencyList) {
+        this.currencyList = currencyList;
+    }
+    
+//    public List<TsCurrency> getCurrencyList(){
+//        currencyList = CompanyService.getCurrencyList();
+//        return currencyList;
+//    }
     
     public List<TsCurrency> getCurrencyList(String currencyCode){
         logger.info("currency code is "+currencyCode);
         return CompanyService.getCurrencyList(currencyCode);
     }
-    
+       
     private void populateCompanyDetails(){        
         TsCompany tsCompany;
         String _symbol = getNotNullSymbol();
