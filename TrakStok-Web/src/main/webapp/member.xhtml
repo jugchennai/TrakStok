@@ -35,6 +35,23 @@
                                     <td>Last Login :</td>
                                     <td><h:outputText value="#{loginBean.date}" /></td>
                                 </tr>
+                                <tr>
+                                    <td>Preferred Currency</td>
+                                    <td><h:selectOneMenu id="countries" 
+                                                         label="Countries"
+                                                         value="#{companyBean.targetCurrency}">
+                                            <f:selectItems value="#{companyBean.currencyList}" 
+                                                           var="p" 
+                                                           itemLabel="#{p.currencyCode}" 
+                                                           itemValue="#{p.currencyCode}"/>
+
+                                            <!--                <f:ajax event="change" 
+                                                                    execute="@this" 
+                                                                    render="states"
+                                                                    listener="" />-->
+
+                                        </h:selectOneMenu></td>
+                                </tr>
                             </table> 
                         </p:panel>  
 
