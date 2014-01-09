@@ -1,11 +1,54 @@
 
-target/
-build/
-.forge_settings
-TrakStok-Web/faces-config.NavData
-nb-configuration.xml
-
 .project
 .settings/
+
+bin/
+
+# Java Clas Files #
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# IDE Files #
+.classpath
+.project
+.settings
+*.iml
+*.ipr
+*.iws
+*.swp
+.idea
+nb-configuration.xml
+.forge_settings
+
+# OS Specific folders/Files#
+.DS_Store
+*.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Build tool specific files/Folders #
+.gradle/
+dist/
+build/
+target/
+
+
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
 
 
