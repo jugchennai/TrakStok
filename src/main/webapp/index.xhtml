@@ -1,11 +1,18 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" 
+                template="WEB-INF/template/default.xhtml">
+    <ui:define name="title">TrakStok</ui:define>
+
+
+    <ui:define name="content">
+
+        <div class="hero-unit">
+            <h1>TrakStok</h1>
+            <p>A proof of concept project for <a href="http://java.net/projects/javamoney/pages/Home">JSR 354: Money and Currency API</a></p>
+            <p><a class="btn btn-primary btn-large">Learn more  </a></p>
+        </div>
+        
+       
+    </ui:define>
+</ui:composition>
