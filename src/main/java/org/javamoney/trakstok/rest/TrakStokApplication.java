@@ -1,9 +1,9 @@
-package in.jugchennai.trakstok.rest;
+package org.javamoney.trakstok.rest;
 
 import javax.ws.rs.core.Application;
 import javax.ws.rs.ApplicationPath;
 
-@ApplicationPath("/rest")
+@ApplicationPath("/api")
 public class TrakStokApplication extends Application
 {
 }
