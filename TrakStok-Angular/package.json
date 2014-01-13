@@ -1,0 +1,26 @@
+{
+  "name": "trakstok",
+  "version": "0.0.1",
+  "description": "TrakStok",
+  "keywords": [],
+  "author": [],
+  "homepage": "",
+  "bugs": "https://github.com/jugchennaiadoptjava/TrakStok/issues",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jugchennaiadoptjava/TrakStok"
+  },
+  "dependencies": {
+    
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-watch": "~0.5.x",
+    "grunt-contrib-less": "~0.8.x",
+    "grunt-contrib-uglify": "~0.2.x",
+    "grunt-contrib-clean": "~0.5.x",
+    "grunt-contrib-copy": "~0.4.x",
+    "grunt-contrib-jshint": "~0.7.x",
+    "load-grunt-tasks": "~0.2.x"
+  }
+}
