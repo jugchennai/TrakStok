@@ -2,7 +2,9 @@ module.exports = function (grunt) {
   "use strict";
 
   require('load-grunt-tasks')(grunt);
-grunt.loadNpmTasks('grunt-coffee');
+
+grunt.loadNpmTasks('grunt-contrib-coffee');
+
   grunt.registerTask('default', [
     'build'
   ]);
@@ -10,7 +12,8 @@ grunt.loadNpmTasks('grunt-coffee');
   grunt.registerTask('build', [
     'clean',
     'copy:components',
-    'less:dev'
+    'less:dev',
+    'coffee'
   ]);
   
   grunt.registerTask('copy:components', [
@@ -18,8 +21,7 @@ grunt.loadNpmTasks('grunt-coffee');
     'copy:angularRoute',
     'copy:angularResource',
     'copy:lodash',
-    'copy:fontAwesome',
-	'copy:coffee'
+    'copy:fontAwesome'
   ]);
   
   var configuration = {
@@ -27,7 +29,7 @@ grunt.loadNpmTasks('grunt-coffee');
     less: 'src/main/webapp/resources/less',
     scripts: 'src/main/webapp/resources/scripts',
     fonts: 'src/main/webapp/resources/fonts',
-	coffee: 'src/main/webapp/resources/coffee',
+	  coffee: 'src/main/webapp/resources/coffee',
     components: 'bower_components'
   };
 
@@ -40,6 +42,19 @@ grunt.loadNpmTasks('grunt-coffee');
       styles: ['<%= config.styles %>/app*.css'],
       scripts: ['<%= config.scripts %>/app*.js']
     },
+
+    coffee: {
+     
+      glob_to_multiple: {
+    expand: true,
+    flatten: true,
+    cwd: '<%= config.coffee %>',
+    src: ['*.coffee'],
+    dest: '<%= config.scripts %>',
+    ext: '.js'
+  },
+    },
+ 
     
     // COPY
     copy: {
@@ -73,13 +88,7 @@ grunt.loadNpmTasks('grunt-coffee');
         src: '*',
         dest: '<%= config.fonts %>'
       },
-	  //Coffee Script
-	 coffee: {
-      app: {
-        src: ['<%= config.coffee %>'],
-        dest: '<%= config.scripts %>'
-      }
-    }
+
     },
 
     // LESS
@@ -109,6 +118,8 @@ grunt.loadNpmTasks('grunt-coffee');
         '<%= config.scripts %>/app.min.js': '<%= config.scripts %>/app.js'
       }
     },
+
+       
 	
 
     // WATCH
