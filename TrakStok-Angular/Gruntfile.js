@@ -2,7 +2,7 @@ module.exports = function (grunt) {
   "use strict";
 
   require('load-grunt-tasks')(grunt);
-
+grunt.loadNpmTasks('grunt-coffee');
   grunt.registerTask('default', [
     'build'
   ]);
@@ -18,7 +18,8 @@ module.exports = function (grunt) {
     'copy:angularRoute',
     'copy:angularResource',
     'copy:lodash',
-    'copy:fontAwesome'
+    'copy:fontAwesome',
+	'copy:coffee'
   ]);
   
   var configuration = {
@@ -71,7 +72,14 @@ module.exports = function (grunt) {
         cwd: '<%= config.components %>/font-awesome/fonts/',
         src: '*',
         dest: '<%= config.fonts %>'
+      },
+	  //Coffee Script
+	 coffee: {
+      app: {
+        src: ['<%= config.coffee %>'],
+        dest: '<%= config.scripts %>'
       }
+    }
     },
 
     // LESS
@@ -101,6 +109,7 @@ module.exports = function (grunt) {
         '<%= config.scripts %>/app.min.js': '<%= config.scripts %>/app.js'
       }
     },
+	
 
     // WATCH
     watch: {
