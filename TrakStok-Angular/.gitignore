@@ -1,0 +1,10 @@
+target
+.project
+.classpath
+.settings
+bower_components
+node_modules
+
+src/main/webapp/resources/fonts
+src/main/webapp/resources/styles
+src/main/webapp/resources/scripts/vendors
