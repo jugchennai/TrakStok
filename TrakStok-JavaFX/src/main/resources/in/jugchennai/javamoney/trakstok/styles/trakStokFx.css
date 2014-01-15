@@ -1,0 +1,49 @@
+/* 
+    Document   : trakStokFx
+    Created on : May 19, 2013, 7:57:05 PM
+    Author     : gshenoy
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+.tsbase {
+    -fx-background-color: #333333;
+}
+
+.tsLabel {
+    -fx-font-family: "Tahoma";
+    -fx-text-fill: white;
+}
+
+.tsButton {
+    -fx-background-color: 
+        #808080,
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(#20262b, #191d22),
+        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+    -fx-background-radius: 5,4,3,5;
+    -fx-background-insets: 0,1,2,0;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-font-family: "Arial";
+    -fx-text-fill: linear-gradient(white, #d0d0d0);
+    -fx-font-size: 10px;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+}
+
+.tsButton:pressed {
+    -fx-padding: 10 15 13 15;
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+
+.tsTextInput {
+    
+    -fx-font-family: "Tahoma";
+    -fx-font-size: 14px;
+    -fx-text-fill: linear-gradient(white, #d0d0d0);
+}
