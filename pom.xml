@@ -40,6 +40,16 @@
 	
     <dependencyManagement>
         <dependencies>
+            
+           
+            <dependency>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-web-7.0</artifactId>
+                <version>1.0.0.Beta2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
 		
             <dependency>
                 <groupId>in.jugchennai.javamoney</groupId>
