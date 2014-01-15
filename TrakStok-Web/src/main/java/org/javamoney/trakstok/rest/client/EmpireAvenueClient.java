@@ -18,14 +18,28 @@ package org.javamoney.trakstok.rest.client;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.Response;
 /**
  *
  * @author rajmahendrahegde
  */
+
 public class EmpireAvenueClient {
     static final String REST_SERVICE_ENDPOINT = "http://localhost:8000/trakstok/api/";
-    static final String START_DANCE_SERVICE="";
+    static final String START_DANCE_SERVICE="empireavenue/startDance";
     
     Client client = ClientBuilder.newClient();
+    
+    
+    public String getStartDanceUrl() {
+        
+        Response res = client.target(buildUrl(START_DANCE_SERVICE)).request("text/plain").get();
+        String message = res.readEntity(String.class);
+        return message;
+    }
+    
+    private String buildUrl(String servicePoint) {
+        return REST_SERVICE_ENDPOINT + servicePoint;
+    }
     
 }
