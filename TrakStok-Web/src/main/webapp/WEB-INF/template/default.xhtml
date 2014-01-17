@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
-    <!--
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<!--
     Copyright 2013 JUGChennai.
     
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,34 +21,42 @@
     limitations under the License.
     -->
 
-    <h:head>
-        <title><ui:insert name="title">TrekStok :: JSR 354: Money and Currency</ui:insert></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<h:head>
+	<title><ui:insert name="title">TrekStok :: JSR 354: Money and Currency</ui:insert></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<h:outputStylesheet name="bootstrap.min.css" library="css" />
+	<h:outputStylesheet name="bootstrap-theme.min.css" library="css" />
+	<h:outputScript name="bootstrap.min.js" library="javascript" />
+
+</h:head>
+<h:body>
 
 
-    </h:head>
-    <h:body>
-
-       
-        <h1>TrakStok</h1>
+	<h1>TrakStok</h1>
 
 
-        <div class="container">
-            <br/><br/><br/>
+	<div class="container">
 
-            <ui:insert name="content">Default content</ui:insert>
+		<nav class="navbar navbar-default navbar-static-top" role="navigation">
+		</nav>
 
-        </div>
+		<br /> <br /> <br />
 
-        <br/><br/>
-        <hr/>
-        <div id="footer">
-            <div class="container">
-                <p class="muted credit">JSR 354: Money and Currency </p>
-            </div>
-        </div>
+		<ui:insert name="content">Default content</ui:insert>
 
-    </h:body>
+	</div>
+
+	<br />
+	<br />
+	<hr />
+	<div id="footer">
+		<div class="container">
+			<p class="muted credit">JSR 354: Money and Currency</p>
+		</div>
+	</div>
+
+</h:body>
 
 </html>
