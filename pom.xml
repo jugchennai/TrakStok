@@ -40,6 +40,21 @@
 	
     <dependencyManagement>
         <dependencies>
+
+             <dependency>
+            <groupId>org.agorava</groupId>
+            <artifactId>agorava-core-api</artifactId>
+            <version>${agorava.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.agorava</groupId>
+            <artifactId>agorava-core-impl-cdi</artifactId>
+            <version>${agorava.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
             
            
             <dependency>
