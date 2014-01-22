@@ -1,167 +1,158 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>in.jugchennai.javamoney</groupId>
-    <artifactId>TrakStok</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <name>TrakStok</name>
-    <description></description>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>in.jugchennai.javamoney</groupId>
+	<artifactId>TrakStok</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>TrakStok</name>
+	<description></description>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <agorava.version>0.7.0</agorava.version>
-        <java.version>1.7</java.version>
-    </properties>
-    
-    <scm>
-        <connection>scm:git:git@github.com:jugchennai/TrakStok.git</connection>
-        <developerConnection>scm:git:git@github.com:jugchennai/TrakStok.git</developerConnection>
-        <url>https://github.com/jugchennai/TrakStok</url>
-    </scm>
-    
-    <issueManagement>
-        <system>GitHub</system>
-        <url>https://github.com/jugchennaiadoptjava/TrakStok/issues</url>
-    </issueManagement>
-        
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-            <comments/>
-        </license>
-    </licenses>
-        
-    <organization>
-        <name>JUGChennai</name>
-        <url>http://jugchennai.in</url>
-    </organization>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<agorava.version>0.7.0</agorava.version>
+		<java.version>1.7</java.version>
+	</properties>
+
+	<scm>
+		<connection>scm:git:git@github.com:jugchennai/TrakStok.git</connection>
+		<developerConnection>scm:git:git@github.com:jugchennai/TrakStok.git</developerConnection>
+		<url>https://github.com/jugchennai/TrakStok</url>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/jugchennaiadoptjava/TrakStok/issues</url>
+	</issueManagement>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments />
+		</license>
+	</licenses>
+
+	<organization>
+		<name>JUGChennai</name>
+		<url>http://jugchennai.in</url>
+	</organization>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<dependency>
+				<groupId>org.agorava</groupId>
+				<artifactId>agorava-core-api</artifactId>
+				<version>${agorava.version}</version>
+				<scope>compile</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.agorava</groupId>
+				<artifactId>agorava-core-impl-cdi</artifactId>
+				<version>${agorava.version}</version>
+				<scope>compile</scope>
+			</dependency>
+
+
+
+			<dependency>
+				<groupId>org.jboss.spec</groupId>
+				<artifactId>jboss-javaee-6.0</artifactId>
+				<version>3.0.2.Final</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+
 	
-    <dependencyManagement>
-        <dependencies>
 
-             <dependency>
-            <groupId>org.agorava</groupId>
-            <artifactId>agorava-core-api</artifactId>
-            <version>${agorava.version}</version>
-            <scope>compile</scope>
-        </dependency>
+			<dependency>
+				<groupId>javax.faces</groupId>
+				<artifactId>javax.faces-api</artifactId>
+				<version>2.2</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.ws.rs</groupId>
+				<artifactId>javax.ws.rs-api</artifactId>
+				<version>2.0</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.enterprise</groupId>
+				<artifactId>cdi-api</artifactId>
+				<version>[1.1,1.2)</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.annotation</groupId>
+				<artifactId>jsr250-api</artifactId>
+				<version>1.0</version>
+			</dependency>
 
-        <dependency>
-            <groupId>org.agorava</groupId>
-            <artifactId>agorava-core-impl-cdi</artifactId>
-            <version>${agorava.version}</version>
-            <scope>compile</scope>
-        </dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.5</version>
+				<scope>test</scope>
+			</dependency>
 
-            
-           
-            <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-web-7.0</artifactId>
-                <version>1.0.0.Beta2</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>1.2.17</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.agorava</groupId>
+				<artifactId>agorava-bom</artifactId>
+				<version>${agorava.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.agorava</groupId>
+				<artifactId>agorava-empireavenue-api</artifactId>
+				<version>${agorava.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.agorava</groupId>
+				<artifactId>agorava-empireavenue-cdi</artifactId>
+				<version>${agorava.version}</version>
+			</dependency>
 
-		
-            <dependency>
-                <groupId>in.jugchennai.javamoney</groupId>
-                <artifactId>TrakStok-Rest</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-		
-            <dependency>
-                <groupId>javax.faces</groupId>
-                <artifactId>javax.faces-api</artifactId>
-                <version>2.2</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>javax.ws.rs</groupId>
-                <artifactId>javax.ws.rs-api</artifactId>
-                <version>2.0</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.enterprise</groupId>
-                <artifactId>cdi-api</artifactId>
-                <version>[1.1,1.2)</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.annotation</groupId>
-                <artifactId>jsr250-api</artifactId>
-                <version>1.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-6.0</artifactId>
-                <version>3.0.2.Final</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.5</version>
-                <scope>test</scope>
-            </dependency>
+		</dependencies>
 
-            <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>1.2.17</version>
-                <scope>compile</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.agorava</groupId>
-                <artifactId>agorava-bom</artifactId>
-                <version>${agorava.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.agorava</groupId>
-                <artifactId>agorava-empireavenue-api</artifactId>
-                <version>${agorava.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.agorava</groupId>
-                <artifactId>agorava-empireavenue-cdi</artifactId>
-                <version>${agorava.version}</version>
-            </dependency>
+	</dependencyManagement>
 
-        </dependencies>
 
-    </dependencyManagement>
-	
-	
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <debug>false</debug>
-                    <showDeprecation>true</showDeprecation>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.4.3</version>
-                <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    <modules>
-        <module>TrakStok-Rest</module>
-        <module>TrakStok-Web</module>
-        <module>TrakStok-Angular</module>
-    </modules>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<debug>false</debug>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.4.3</version>
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<modules>
+		<module>TrakStok-Rest</module>
+		<module>TrakStok-Web</module>
+		<!-- <module>TrakStok-Angular</module> -->
+	</modules>
 
 </project>
