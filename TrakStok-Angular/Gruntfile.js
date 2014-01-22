@@ -29,7 +29,7 @@ grunt.loadNpmTasks('grunt-contrib-coffee');
     less: 'src/main/webapp/resources/less',
     scripts: 'src/main/webapp/resources/scripts',
     fonts: 'src/main/webapp/resources/fonts',
-	  coffee: 'src/main/webapp/resources/coffee',
+    coffee: 'src/main/webapp/resources/coffee',
     components: 'bower_components'
   };
 
