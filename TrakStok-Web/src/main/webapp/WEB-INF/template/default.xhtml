@@ -46,14 +46,14 @@
 				<a class="navbar-brand" href="#">TrakStok</a>
 			</div>
 			<div class="navbar-collapse collapse">
-				<form class="navbar-form navbar-right" role="form">
+				<h:form class="navbar-form navbar-right" role="form">
 					<h:selectOneMenu>
 						<c:forEach items="#{empireAvenueClient.allSupportedCurrency}" var="code">
-							<f:selectItem itemValue="#{code}" itemLabel="#{code}" />
+							<f:selectItem itemValue="#{code.currencyCode}" itemLabel="#{code.currencyName}" />
 						</c:forEach>
 					</h:selectOneMenu>
 					<button type="submit" class="btn btn-success">Log-in</button>
-				</form>
+				</h:form>
 			</div>
 			<!--/.navbar-collapse -->
 		</div>
