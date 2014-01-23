@@ -24,6 +24,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
 import org.javamoney.trakstok.model.Currency;
@@ -44,7 +45,7 @@ public class EmpireAvenueClient implements Serializable {
     @SuppressWarnings("unused")
     private List<Currency> allSupportedCurrency;
 
-    Client client = ClientBuilder.newClient();
+    static final Client client = ClientBuilder.newClient();
 
     public String getStartDanceUrl() {
 
@@ -54,10 +55,8 @@ public class EmpireAvenueClient implements Serializable {
     }
 
     public List<Currency> getAllSupportedCurrency() {
-        Response res = client.target(buildUrl(SUPPORTED_CURRENCY_SERVICE)).request("application/json").get();
-        CurrencyList list = res.readEntity(CurrencyList.class);
-        System.out.println("VALUE FROM REST: "+list.getCurrencyList());
-        return list.getCurrencyList();
+    	List<Currency> list = client.target(buildUrl(SUPPORTED_CURRENCY_SERVICE)).request("application/json").get(new GenericType<List<Currency>>(){});
+        return list;
 
     }
 
