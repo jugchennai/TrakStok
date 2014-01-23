@@ -15,15 +15,23 @@
  */
 package org.javamoney.trakstok.rest;
 
+import javax.inject.Inject;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
+import org.agorava.api.service.OAuthLifeCycleService;
+import org.agorava.empireavenue.EmpireAvenue;
+import org.agorava.empireavenue.service.ProfileService;
+
 /**
- *
+ * 
  * @author rajmahendrahegde
  */
 @Path("empireavenue")
 public class EmpireAvenueService {
-/*
+
+
+
     @Inject
     @EmpireAvenue
     protected ProfileService profileService;
@@ -31,6 +39,12 @@ public class EmpireAvenueService {
     @Inject
     OAuthLifeCycleService lifeCycleService;
 
-    */
+    @GET
+    @Path("/startDance")
+    public String startDance()
+    {
+        return lifeCycleService.startDanceFor("EmpireAvenue");
+
+    }
 
 }

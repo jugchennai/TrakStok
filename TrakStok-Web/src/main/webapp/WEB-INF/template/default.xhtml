@@ -45,17 +45,26 @@
 				</button>
 				<a class="navbar-brand" href="#">TrakStok</a>
 			</div>
-			<div class="navbar-collapse collapse">
+			<div class="navbar-collapse collapse" align="right">
 				<h:form class="navbar-form navbar-right" role="form">
-					<h:selectOneMenu>
-						<c:forEach items="#{empireAvenueClient.allSupportedCurrency}" var="code">
-							<f:selectItem itemValue="#{code.currencyCode}" itemLabel="#{code.currencyName}" />
-						</c:forEach>
-					</h:selectOneMenu>
-					<button type="submit" class="btn btn-success">Log-in</button>
+					<c:choose>
+						<c:when test="${userInfo.loggedIn == true}">
+							<h:selectOneMenu>
+								<c:forEach items="#{empireAvenueClient.allSupportedCurrency}"
+									var="code">
+									<f:selectItem itemValue="#{code.currencyCode}"
+										itemLabel="#{code.currencyName}" />
+								</c:forEach>
+							</h:selectOneMenu>
+						</c:when>
+						<c:otherwise>
+						<h:outputLabel  styleClass="userInfo" value="#{userInfo.displayName}"/>
+							<button type="submit" class="btn btn-success">Log-in</button>
+						</c:otherwise>
+					</c:choose>
+
 				</h:form>
 			</div>
-			<!--/.navbar-collapse -->
 		</div>
 	</div>
 
