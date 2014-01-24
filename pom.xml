@@ -43,22 +43,6 @@
 		<dependencies>
 
 			<dependency>
-				<groupId>org.agorava</groupId>
-				<artifactId>agorava-core-api</artifactId>
-				<version>${agorava.version}</version>
-				<scope>compile</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.agorava</groupId>
-				<artifactId>agorava-core-impl-cdi</artifactId>
-				<version>${agorava.version}</version>
-				<scope>compile</scope>
-			</dependency>
-
-
-
-			<dependency>
 				<groupId>org.jboss.spec</groupId>
 				<artifactId>jboss-javaee-6.0</artifactId>
 				<version>3.0.2.Final</version>
@@ -66,10 +50,15 @@
 				<scope>import</scope>
 			</dependency>
 
+            <dependency>
+                <groupId>org.agorava</groupId>
+                <artifactId>agorava-bom</artifactId>
+                <version>${agorava.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
-	
-
-			<dependency>
+            <dependency>
 				<groupId>javax.faces</groupId>
 				<artifactId>javax.faces-api</artifactId>
 				<version>2.2</version>
@@ -104,11 +93,7 @@
 				<version>1.2.17</version>
 				<scope>compile</scope>
 			</dependency>
-			<dependency>
-				<groupId>org.agorava</groupId>
-				<artifactId>agorava-bom</artifactId>
-				<version>${agorava.version}</version>
-			</dependency>
+
 			<dependency>
 				<groupId>org.agorava</groupId>
 				<artifactId>agorava-empireavenue-api</artifactId>
