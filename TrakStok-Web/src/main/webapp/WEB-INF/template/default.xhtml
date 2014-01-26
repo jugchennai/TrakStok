@@ -58,8 +58,15 @@
 							</h:selectOneMenu>
 						</c:when>
 						<c:otherwise>
-						<h:outputLabel  styleClass="userInfo" value="#{userInfo.displayName}"/>
-							<button type="submit" class="btn btn-success">Log-in</button>
+							<script>
+function startDance() {
+    window.open("<h:outputText value="#{empireAvenueClient.startDanceUrl}"  escape="false" />", 'EmpireAvenue Grant','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,resizable=0,width=400,height=400,modal=yes');
+}
+                        </script>
+							<h:outputLabel styleClass="userInfo"
+								value="#{userInfo.displayName}" />
+							<button type="submit" class="btn btn-success"
+								onclick="startDance();">Log-in</button>
 						</c:otherwise>
 					</c:choose>
 

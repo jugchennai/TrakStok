@@ -30,8 +30,6 @@ import org.agorava.empireavenue.service.ProfileService;
 @Path("empireavenue")
 public class EmpireAvenueService {
 
-
-
     @Inject
     @EmpireAvenue
     protected ProfileService profileService;
@@ -43,7 +41,9 @@ public class EmpireAvenueService {
     @Path("/startDance")
     public String startDance()
     {
-        return lifeCycleService.startDanceFor("EmpireAvenue");
+        String danceURL = lifeCycleService.startDanceFor("EmpireAvenue");
+        System.out.println(danceURL);
+        return danceURL;
 
     }
 
