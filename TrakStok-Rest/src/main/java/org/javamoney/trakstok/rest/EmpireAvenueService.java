@@ -21,6 +21,7 @@ import javax.ws.rs.Path;
 
 import org.agorava.api.service.OAuthLifeCycleService;
 import org.agorava.empireavenue.EmpireAvenue;
+import org.agorava.empireavenue.model.ProfileInfo;
 import org.agorava.empireavenue.service.ProfileService;
 
 /**
@@ -47,4 +48,13 @@ public class EmpireAvenueService {
 
     }
 
+    @GET
+    @Path("/profileInfo")
+    public ProfileInfo profileInfo() {
+    	
+    	return profileService.getProfileInfo().getProfileInfo();
+    	
+    	
+    }
+    
 }
