@@ -4,6 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <!--
     Copyright 2013 JUGChennai.
@@ -22,12 +23,13 @@
     -->
 
 <h:head>
-	<title><ui:insert name="title">TrekStok :: JSR 354: Money and Currency</ui:insert></title>
+	<title><ui:insert name="title">TrakStok :: JSR 354: Money and Currency</ui:insert></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<h:outputStylesheet name="bootstrap.min.css" library="css" />
 	<h:outputStylesheet name="bootstrap-theme.min.css" library="css" />
+	<h:outputStylesheet name="trakstok.css" library="css" />
 	<h:outputScript name="bootstrap.min.js" library="javascript" />
 
 </h:head>
@@ -49,11 +51,13 @@
 				<h:form class="navbar-form navbar-right" role="form">
 					<c:choose>
 						<c:when test="${userInfo.loggedIn == true}">
-							<h:selectOneMenu>
+						<h:outputLabel styleClass="userInfo"
+								value="#{userInfo.displayName}" />
+							<h:selectOneMenu value="${userInfo.preferredCurrency.currencyCode}">
 								<c:forEach items="#{empireAvenueClient.allSupportedCurrency}"
 									var="code">
 									<f:selectItem itemValue="#{code.currencyCode}"
-										itemLabel="#{code.currencyName}" />
+										itemLabel="#{code.currencyName}"/>
 								</c:forEach>
 							</h:selectOneMenu>
 						</c:when>
