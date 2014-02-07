@@ -1,12 +1,12 @@
 package org.javamoney.trakstok.model;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
-
 import java.io.Serializable;
 
+import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+
 @SuppressWarnings("serial")
-@Named
+@ManagedBean
 @SessionScoped
 public class UserInfo implements Serializable {
 
@@ -15,8 +15,17 @@ public class UserInfo implements Serializable {
     private String shortImage;
     private String fullImage;
     private boolean loggedIn = false;
+    private Currency preferredCurrency;
+    
+    public Currency getPreferredCurrency() {
+		return preferredCurrency;
+	}
 
-    public String getUserName() {
+	public void setPreferredCurrency(Currency preferredCurrency) {
+		this.preferredCurrency = preferredCurrency;
+	}
+
+	public String getUserName() {
         return userName;
     }
 

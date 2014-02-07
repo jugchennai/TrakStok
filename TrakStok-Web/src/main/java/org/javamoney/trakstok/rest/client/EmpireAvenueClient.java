@@ -27,6 +27,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
+import org.agorava.empireavenue.model.BankBalance;
 import org.agorava.empireavenue.model.ProfileInfo;
 import org.javamoney.trakstok.model.Currency;
 import org.javamoney.trakstok.model.CurrencyList;
@@ -44,6 +45,8 @@ public class EmpireAvenueClient implements Serializable {
     static final String START_DANCE_SERVICE = "empireavenue/startDance";
     static final String SUPPORTED_CURRENCY_SERVICE = "exchange/supportedcurrencies";
     static final String PROFILE_INFO_SERVICE = "empireavenue/profileInfo";
+    static final String BANK_BALANCE_SERVICE = "empireavenue/bankBalance";
+    
     @SuppressWarnings("unused")
     private List<Currency> allSupportedCurrency;
 
@@ -74,5 +77,10 @@ public class EmpireAvenueClient implements Serializable {
     	ProfileInfo profileInfo = client.target(buildUrl(PROFILE_INFO_SERVICE)).request("application/json").get(new GenericType<ProfileInfo>(){});
     	return profileInfo;    	
     }
+    
+    public BankBalance getBankBalance() {
+    	return client.target(buildUrl(BANK_BALANCE_SERVICE)).request("application/json").get(new GenericType<BankBalance>(){});
+    }
+    
 
 }

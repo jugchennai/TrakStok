@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="WEB-INF/template/default.xhtml">
+	<ui:define name="title">TrakStok</ui:define>
+
+
+	<ui:define name="content">
+
+
+		<h:form>
+			<div class="container">
+
+				<p:panel id="display" header="Profile Info" style="margin-top:10px;">
+
+					<h:panelGrid columns="2">
+
+						<h:outputLabel value="Ticker: " />
+						<h:outputLabel value="#{profileInfoBean.ticker}" />
+						
+						<h:outputLabel value="First Name: " />
+						<h:outputLabel value="#{profileInfoBean.firstName}" />
+						
+						<h:outputLabel value="Last Name: " />
+						<h:outputLabel value="#{profileInfoBean.lastName}" />
+						
+						<h:outputLabel value="Joined: " />
+						<h:outputLabel value="#{profileInfoBean.joined}" />
+						
+						<h:outputLabel value="Location: " />
+						<h:outputLabel value="#{profileInfoBean.location}" />
+						
+						<h:outputLabel value="Country: " />
+						<h:outputLabel value="#{profileInfoBean.country}" />
+						
+						<h:outputLabel value="Total Shares: " />
+						<h:outputLabel value="#{profileInfoBean.totalShares}" />
+
+						<h:outputLabel value="Bank balance: " />
+						<h:outputLabel value="#{profileInfoBean.bankBalanceWithCurrency}" />
+
+					</h:panelGrid>
+				</p:panel>
+
+			</div>
+			<div class="col-md-4">
+				<p></p>
+				<p>
+					<h:commandButton value="Home" styleClass="btn btn-default"
+						action="#{profileInfoBean.home}" />
+				</p>
+			</div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

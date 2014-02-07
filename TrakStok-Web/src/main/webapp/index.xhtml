@@ -1,4 +1,5 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	template="WEB-INF/template/default.xhtml">
@@ -21,20 +22,18 @@
 			</div>
 		</div>
 
-
+		<h:form>
 
 		<div class="container">
 			<!-- Example row of columns -->
 			<div class="row">
 				<div class="col-md-4">
-					<h2>Heading</h2>
 					<p></p>
 					<p>
-						<a class="btn btn-default" href="#" role="button">View details</a>
+						<h:commandButton styleClass="btn btn-default" value="Profile" action="#{profileInfoBean.getProfileInfo}" />
 					</p>
 				</div>
 				<div class="col-md-4">
-					<h2>Heading</h2>
 					<p></p>
 					<p>
 						<a class="btn btn-default" href="#" role="button">View details
@@ -42,7 +41,6 @@
 					</p>
 				</div>
 				<div class="col-md-4">
-					<h2>Heading</h2>
 					<p></p>
 					<p>
 						<a class="btn btn-default" href="#" role="button">View details</a>
@@ -51,6 +49,8 @@
 			</div>
 
 		</div>
+		
+		</h:form>
 
 	</ui:define>
 </ui:composition>
