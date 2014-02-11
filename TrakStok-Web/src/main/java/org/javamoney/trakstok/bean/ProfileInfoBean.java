@@ -1,21 +1,26 @@
 package org.javamoney.trakstok.bean;
 
 import java.math.BigDecimal;
+import java.util.Locale;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.money.MonetaryAmount;
+import javax.money.format.MonetaryAmountFormat;
+import javax.money.format.MonetaryFormats;
 
+import org.agorava.empireavenue.model.BankBalance;
 import org.agorava.empireavenue.model.ProfileInfo;
-import org.javamoney.trakstok.model.Currency;
+import org.javamoney.trakstok.model.UserInfo;
 import org.javamoney.trakstok.model.money.TSAmount;
 import org.javamoney.trakstok.model.money.TSNumber;
+import org.javamoney.trakstok.rest.client.EmpireAvenueClient;
 
 @ManagedBean
 @SessionScoped
 public class ProfileInfoBean {
 
-	ProfileInfo profileInfo;
+	// ProfileInfo profileInfo;
 
 	private String firstName;
 	private String lastName;
@@ -27,12 +32,16 @@ public class ProfileInfoBean {
 
 	private TSAmount bankBalance;
 
+	@ManagedProperty(value = "#{userInfo}")
+	private UserInfo userInfo;
+
+	EmpireAvenueClient client = new EmpireAvenueClient();
+
 	public ProfileInfoBean() {
 
 	}
 
-	public ProfileInfoBean(ProfileInfo profileInfo) {
-		this.profileInfo = profileInfo;
+	public void setProfileInfo(ProfileInfo profileInfo) {
 
 		this.firstName = profileInfo.getFirstName();
 		this.lastName = profileInfo.getLastName();
@@ -74,8 +83,15 @@ public class ProfileInfoBean {
 
 	public String getProfileInfo() {
 
-		if (profileInfo != null) {
+		if (userInfo.getProfileInfo() != null) {
+
+			setProfileInfo(userInfo.getProfileInfo());
+
+			BankBalance bankBalance = client.getBankBalance();
+			setBankBalance(bankBalance.getBalance());
+
 			return "profileSuccess";
+
 		} else {
 			return "failure";
 		}
@@ -88,7 +104,7 @@ public class ProfileInfoBean {
 
 	public void setBankBalance(BigDecimal bankBalance) {
 		this.bankBalance = new TSAmount(new TSNumber(bankBalance),
-				new Currency("EVS", "EmpireAvene Eave"));
+				userInfo.getPreferredCurrency());
 	}
 
 	public String home() {
@@ -96,8 +112,19 @@ public class ProfileInfoBean {
 	}
 
 	public String getBankBalanceWithCurrency() {
-		return getBankBalance().getCurrency().getCurrencyCode() + " "
-				+ String.valueOf(getBankBalance().getNumber().longValue());
+
+		MonetaryAmountFormat form = MonetaryFormats.getAmountFormat(Locale.getDefault());
+		String amount = form.format(getBankBalance());
+
+		return getBankBalance().getCurrency().getCurrencyCode() + " " + amount;
+	}
+
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 
 }

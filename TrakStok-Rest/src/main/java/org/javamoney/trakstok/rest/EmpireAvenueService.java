@@ -15,6 +15,8 @@
  */
 package org.javamoney.trakstok.rest;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -22,7 +24,9 @@ import javax.ws.rs.Path;
 import org.agorava.api.service.OAuthLifeCycleService;
 import org.agorava.empireavenue.EmpireAvenue;
 import org.agorava.empireavenue.model.BankBalance;
+import org.agorava.empireavenue.model.Portfolio;
 import org.agorava.empireavenue.model.ProfileInfo;
+import org.agorava.empireavenue.service.PortfolioService;
 import org.agorava.empireavenue.service.ProfileService;
 
 /**
@@ -36,6 +40,10 @@ public class EmpireAvenueService {
     @EmpireAvenue
     protected ProfileService profileService;
 
+    @Inject
+    @EmpireAvenue
+    protected PortfolioService portfolioService;
+    
     @Inject
     OAuthLifeCycleService lifeCycleService;
 
@@ -59,6 +67,19 @@ public class EmpireAvenueService {
     @Path("/bankBalance")
     public BankBalance bankBalance() {    	
     	return profileService.getBankBalance().getBankBalance();
+    }
+    
+    @GET
+    @Path("/portfolio")
+    public Portfolio portfolio() {    	
+    	return portfolioService.getFullPortfolio().getPortfolioInfo();
+    }
+    
+    @GET
+    @Path("/portfolioAll")
+    public List<Portfolio> portfolioAll() {    	
+    	List<Portfolio> portfolios = portfolioService.getFullPortfolio().getAllPortfolioInfo();
+    	return portfolios;
     }
     
 }
