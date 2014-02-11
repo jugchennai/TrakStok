@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="WEB-INF/template/default.xhtml">
+	<ui:define name="title">TrakStok</ui:define>
+
+
+	<ui:define name="content">
+
+		<h:form prependId="false">
+
+			<p:dataTable id="dataTable" var="p"
+				value="#{portfolioBean.portfolios}" paginator="true" rows="10"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+				<f:facet name="header">
+            Portfolio
+        </f:facet>
+
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Full name" />
+					</f:facet>
+					<h:outputText value="#{p.fullName}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Ticker" />
+					</f:facet>
+					<h:outputText value="#{p.ticker}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Shares" />
+					</f:facet>
+					<h:outputText value="#{p.shares}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Yesterday's Earnings" />
+					</f:facet>
+					<h:outputText value="#{p.yesterdayEarningsAmt}" />
+				</p:column>
+			</p:dataTable>
+
+
+
+
+			<div class="col-md-4">
+				<p></p>
+				<p>
+					<h:commandButton value="Home" styleClass="btn btn-default"
+						action="#{portfolioBean.home}" />
+				</p>
+			</div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -17,7 +17,6 @@
 package org.javamoney.trakstok.rest.client;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
@@ -28,9 +27,10 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
 import org.agorava.empireavenue.model.BankBalance;
+import org.agorava.empireavenue.model.Portfolio;
 import org.agorava.empireavenue.model.ProfileInfo;
 import org.javamoney.trakstok.model.Currency;
-import org.javamoney.trakstok.model.CurrencyList;
+import org.javamoney.trakstok.model.TSPortfolio;
 
 /**
  * 
@@ -46,6 +46,8 @@ public class EmpireAvenueClient implements Serializable {
     static final String SUPPORTED_CURRENCY_SERVICE = "exchange/supportedcurrencies";
     static final String PROFILE_INFO_SERVICE = "empireavenue/profileInfo";
     static final String BANK_BALANCE_SERVICE = "empireavenue/bankBalance";
+    static final String PORTFOLIO_SERVICE = "empireavenue/portfolio";
+    static final String PORTFOLIO_ALL_SERVICE = "empireavenue/portfolioAll";
     
     @SuppressWarnings("unused")
     private List<Currency> allSupportedCurrency;
@@ -82,5 +84,11 @@ public class EmpireAvenueClient implements Serializable {
     	return client.target(buildUrl(BANK_BALANCE_SERVICE)).request("application/json").get(new GenericType<BankBalance>(){});
     }
     
-
+    public Portfolio getPortfolio() {
+    	return client.target(buildUrl(PORTFOLIO_SERVICE)).request("application/json").get(new GenericType<Portfolio>(){});
+    }
+    
+    public List<TSPortfolio> getPortfolioAll() {
+    	return client.target(buildUrl(PORTFOLIO_ALL_SERVICE)).request("application/json").get(new GenericType<List<TSPortfolio>>(){});
+    }
 }

@@ -13,6 +13,11 @@
 			<redirect />
 		</navigation-case>
 		<navigation-case>
+			<from-outcome>portfolioSuccess</from-outcome>
+			<to-view-id>/portfolio.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
 			<from-outcome>failure</from-outcome>
 			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
@@ -23,6 +28,17 @@
 		<from-view-id>/userProfile.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>profileHomeSuccess</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+
+	<navigation-rule>
+		<display-name>portfolio.xhtml</display-name>
+		<from-view-id>/portfolio.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>portfolioHomeSuccess</from-outcome>
 			<to-view-id>/index.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>

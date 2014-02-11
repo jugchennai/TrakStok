@@ -2,7 +2,9 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	template="WEB-INF/template/default.xhtml">
+	template="WEB-INF/template/default.xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	>
 	<ui:define name="title">TrakStok</ui:define>
 
 
@@ -24,32 +26,40 @@
 
 		<h:form>
 
-		<div class="container">
-			<!-- Example row of columns -->
-			<div class="row">
-				<div class="col-md-4">
-					<p></p>
-					<p>
-						<h:commandButton styleClass="btn btn-default" value="Profile" action="#{profileInfoBean.getProfileInfo}" />
-					</p>
-				</div>
-				<div class="col-md-4">
-					<p></p>
-					<p>
-						<a class="btn btn-default" href="#" role="button">View details
-						</a>
-					</p>
-				</div>
-				<div class="col-md-4">
-					<p></p>
-					<p>
-						<a class="btn btn-default" href="#" role="button">View details</a>
-					</p>
-				</div>
-			</div>
 
-		</div>
-		
+			<c:choose>
+				<c:when test="${userInfo.loggedIn == true}">
+					<div class="container">
+						<!-- Example row of columns -->	
+						<div class="row">
+							<div class="col-md-4">
+								<p></p>
+								<p>
+									<h:commandButton styleClass="btn btn-default" value="Profile"
+										action="#{profileInfoBean.getProfileInfo}" />
+								</p>
+							</div>
+							<div class="col-md-4">
+								<p></p>
+								<p>
+									<h:commandButton styleClass="btn btn-default" value="Portfolio"
+										action="#{portfolioBean.getPortfolio}" />
+								</p>
+							</div>
+							<div class="col-md-4">
+								<p></p>
+								<p>
+									<a class="btn btn-default" href="#" role="button">View
+										details</a>
+								</p>
+							</div>
+						</div>
+
+					</div>
+
+				</c:when>
+			</c:choose>
+
 		</h:form>
 
 	</ui:define>
